@@ -1,3 +1,5 @@
+package co.edu.uniquindio.proyecto_ejemplo_javafx.model;
+
 /**
  * Clase que representa a un Administrador en el sistema hospitalario.
  * Contiene la información básica de identificación y contacto de los administradores.

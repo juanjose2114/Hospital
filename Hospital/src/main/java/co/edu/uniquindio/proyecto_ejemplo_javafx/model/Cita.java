@@ -1,3 +1,5 @@
+package co.edu.uniquindio.proyecto_ejemplo_javafx.model;
+
 import java.time.LocalDate;
 
 /**
