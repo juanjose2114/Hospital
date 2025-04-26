@@ -8,9 +8,12 @@ import java.util.ArrayList;
  */
 public class Hospital {
 
-    // Matriz para representar las salas del hospital:
-    // - Cada fila representa una sala
-    // - Columnas: [0] ID de cita, [1] ID de médico, [2] ID de paciente
+
+    /**
+     * Matriz que representa las salas del hospital:
+     * - Cada fila representa una sala
+     * - Columnas: [0] ID de cita, [1] ID de médico, [2] ID de paciente
+     */
     private String[][] salas;
 
     // Nombre del hospital

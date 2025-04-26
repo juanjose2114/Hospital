@@ -6,7 +6,7 @@ import java.util.LinkedList;
  * Clase que representa a un Paciente en un sistema médico.
  * Hereda de Administrador y gestiona su historial clínico y tratamientos.
  */
-public class Paciente extends Administrador {
+public class Paciente extends Persona {
 
     // Lista para almacenar el historial clínico del paciente
     private LinkedList<String> historialClinico;

@@ -4,7 +4,7 @@ package co.edu.uniquindio.proyecto_ejemplo_javafx.model;
  * Clase que representa a un Médico en un sistema de administración médica.
  * Hereda de la clase Administrador y añade información específica de horarios.
  */
-public class Medico extends Administrador {
+public class Medico extends Persona {
 
     // Atributo único del médico: su horario de atención
     private String horario;
