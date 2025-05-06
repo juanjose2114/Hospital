@@ -8,15 +8,21 @@ import java.time.LocalDate;
  */
 public class Cita {
 
-    // Fecha programada para la cita (usando LocalDate para manejo moderno de fechas)
+    /**
+     * Fecha programada para la cita (usando LocalDate para manejo moderno de fechas)
+     */
     private LocalDate fecha;
 
-    // Identificador único de la cita
+    /**
+     * Identificador único de la cita
+     */
     private String id;
 
-    // Estado de la cita:
-    // - true: cita completada
-    // - false: cita pendiente
+    /**
+     *  Estado de la cita:
+     *  - true: cita completada
+     *  - false: cita pendiente
+     */
     private boolean estado;
 
     /**
@@ -72,5 +78,4 @@ public class Cita {
         return id;
     }
 
-    // Nota: No hay setter para el ID porque es un identificador único que no debería modificarse
 }

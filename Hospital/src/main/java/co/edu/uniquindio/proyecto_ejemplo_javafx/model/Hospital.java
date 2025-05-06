@@ -4,35 +4,64 @@ import java.util.ArrayList;
 
 /**
  * Clase que representa un Hospital en un sistema de gestión médica.
- * Gestiona salas de atención, citas médicas y la información básica del hospital.
+ * Gestiona salas de atención, citas médicas, pacientes, administradores
+ * y toda la información operativa del hospital.
  */
 public class Hospital {
 
+    /**
+     * Arreglo de salas disponibles en el hospital.
+     */
+    private Sala[] salas;
 
     /**
-     * Matriz que representa las salas del hospital:
-     * - Cada fila representa una sala
-     * - Columnas: [0] ID de cita, [1] ID de médico, [2] ID de paciente
+     * Número total de salas en el hospital.
      */
-    private String[][] salas;
+    private int n_salas;
 
-    // Nombre del hospital
+    /**
+     * Lista de pacientes registrados en el hospital.
+     */
+    private ArrayList<Paciente> pacientes;
+
+    /**
+     * Lista de administradores del sistema hospitalario.
+     */
+    private ArrayList<Administrador> administradores;
+
+    /**
+     * Nombre oficial del hospital.
+     */
     private String nombre;
 
-    // Lista de citas programadas en el hospital
+    /**
+     * Lista de citas médicas programadas.
+     */
     private ArrayList<Cita> citas;
+
+    // ==================== CONSTRUCTOR ====================
 
     /**
      * Constructor para crear un nuevo Hospital.
-     * @param nombre Nombre del hospital (ej: "Hospital General").
+     * @param nombre Nombre del hospital (no puede ser nulo o vacío)
+     * @param n_salas Número de salas a crear (debe ser mayor que 0)
+     * @throws IllegalArgumentException Si el nombre es nulo/vacío o el número de salas es inválido
      */
-    public Hospital(String nombre) {
+    public Hospital(String nombre, int n_salas) {
+
         this.nombre = nombre;
-        this.salas = new String[100][3]; // 100 salas con capacidad para 3 datos cada una
+        this.pacientes = new ArrayList<>();
+        this.administradores = new ArrayList<>();
+        this.salas = new Sala[n_salas];
         this.citas = new ArrayList<>();
+
+        // Inicializar salas con IDs consecutivos
+        for(int i = 0; i < n_salas; i++) {
+            salas[i] = new Sala("" + i+1);
+        }
     }
 
-    // ==================== MÉTODOS BÁSICOS DEL HOSPITAL ====================
+    // ==================== MÉTODOS BÁSICOS ====================
 
     /**
      * Obtiene el nombre del hospital.
@@ -44,89 +73,213 @@ public class Hospital {
 
     /**
      * Establece un nuevo nombre para el hospital.
-     * @param nombre Nuevo nombre a asignar.
+     * @param nombre Nuevo nombre a asignar (no puede ser nulo o vacío)
+     * @throws IllegalArgumentException Si el nombre es nulo o vacío
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    // ==================== MÉTODOS PARA GESTIÓN DE SALAS ====================
-
     /**
-     * Obtiene la matriz completa de salas.
-     * @return Matriz donde cada fila representa una sala y sus datos.
+     * Obtiene la lista de pacientes registrados.
+     * @return Copia defensiva de la lista de pacientes.
      */
-    public String[][] getSalas() {
-        return salas;
+    public ArrayList<Paciente> getPacientes() {
+        return pacientes;
     }
 
     /**
-     * Reemplaza toda la configuración de salas.
-     * @param salas Nueva matriz de salas a asignar.
+     * Obtiene la lista de administradores del sistema.
+     * @return Copia defensiva de la lista de administradores.
      */
-    public void setSalas(String[][] salas) {
-        this.salas = salas;
+    public ArrayList<Administrador> getAdministradores() {
+        return administradores;
     }
 
+    // ==================== GESTIÓN DE ADMINISTRADORES ====================
+
     /**
-     * Asigna una cita, médico y paciente a una sala disponible.
-     * @param cita Cita médica a asignar.
-     * @param medico Médico que atenderá la cita.
-     * @param paciente Paciente que será atendido.
-     * @return true si se asignó correctamente, false si no hay salas disponibles o la cita no está activa.
+     * Crea y agrega un nuevo administrador al sistema.
+     * @param administrador Administrador a agregar (no nulo)
+     * @return true si se agregó correctamente, false si ya existía
      */
-    public boolean ocuparSala(Cita cita, Medico medico, Paciente paciente) {
-        if (!cita.getEstado()) {
-            for (int i = 0; i < salas.length; i++) {
-                if (salas[i][0] == null) { // Busca sala disponible (sin cita asignada)
-                    salas[i][0] = cita.getId();
-                    salas[i][1] = medico.getId();
-                    salas[i][2] = paciente.getId();
-                    return true;
-                }
+    public boolean crearAdministrador(Administrador administrador) {
+        if(buscarAdministrador(administrador.getNombre()) != null) {
+            if(buscarAdministrador(administrador.getId()) == null) {
+                return administradores.add(administrador);
             }
         }
         return false;
     }
 
-    // ==================== MÉTODOS PARA GESTIÓN DE CITAS ====================
+    /**
+     * Busca un administrador por su ID.
+     * @param id Identificador del administrador
+     * @return Administrador encontrado o null si no existe
+     */
+    public Administrador buscarAdministrador(String id) {
+        for(Administrador admin : administradores) {
+            if(admin.getId().equals(id)) {
+                return admin;
+            }
+        }
+        return null;
+    }
 
     /**
-     * Obtiene la lista completa de citas del hospital.
-     * @return ArrayList con todas las citas registradas.
+     * Modifica los datos de un administrador existente.
+     * @param administrador Administrador con datos actualizados
+     * @return true si se modificó correctamente, false si no existía
+     */
+    public boolean modificarAdministrador(Administrador administrador) {
+        if(buscarAdministrador(administrador.getNombre()) != null) {
+            administradores.remove(buscarAdministrador(administrador.getId()));
+            return administradores.add(administrador);
+        }
+        return false;
+    }
+
+    // ==================== GESTIÓN DE PACIENTES ====================
+
+    /**
+     * Crea y agrega un nuevo paciente al sistema.
+     * @param idAdmin ID del administrador que realiza la operación
+     * @param paciente Paciente a agregar (no nulo)
+     * @return true si se agregó correctamente, false si ya existía o el admin no es válido
+     */
+    public boolean crearPaciente(String idAdmin, Paciente paciente) {
+        if(buscarAdministrador(idAdmin) != null) {
+            if(buscarAdministrador(idAdmin) != null && buscarPaciente(idAdmin, paciente.getId()) == null) {
+                return pacientes.add(paciente);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Busca un paciente por su ID.
+     * @param idAdmin ID del administrador que realiza la consulta
+     * @param id Identificador del paciente
+     * @return Paciente encontrado o null si no existe
+     */
+    public Paciente buscarPaciente(String idAdmin, String id) {
+        if(buscarAdministrador(idAdmin) != null) {
+            for(Paciente paciente : pacientes) {
+                if(paciente.getId().equals(id)) {
+                    return paciente;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Modifica los datos de un paciente existente.
+     * @param idAdmin ID del administrador que realiza la operación
+     * @param paciente Paciente con datos actualizados
+     * @return true si se modificó correctamente, false si no existía o el admin no es válido
+     * @throws IllegalArgumentException Si el paciente es nulo
+     */
+    public boolean modificarPaciente(String idAdmin, Paciente paciente) {
+        if(buscarPaciente(idAdmin, paciente.getId()) != null) {
+            if(buscarAdministrador(idAdmin) != null) {
+                pacientes.remove(buscarPaciente(idAdmin, paciente.getId()));
+                return pacientes.add(paciente);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Elimina un paciente del sistema.
+     * @param idAdmin ID del administrador que realiza la operación
+     * @param idPaciente Identificador del paciente a eliminar
+     * @return true si se eliminó correctamente, false si no existía o el admin no es válido
+     */
+    public boolean eliminarPaciente(String idAdmin, String idPaciente) {
+        if(buscarAdministrador(idAdmin) != null) {
+            return pacientes.removeIf(p -> p.getId().equals(idPaciente));
+        }
+        return false;
+    }
+
+    // ==================== GESTIÓN DE SALAS ====================
+
+    /**
+     * Obtiene el arreglo completo de salas.
+     * @return Copia defensiva del arreglo de salas
+     */
+    public Sala[] getSalas() {
+        return salas;
+    }
+
+
+    /**
+     * Busca una sala por su ID.
+     * @param idSala Identificador de la sala
+     * @return Sala encontrada o null si no existe
+     */
+    public Sala buscarSala(String idSala) {
+        for(Sala sala : salas) {
+            if(sala != null && sala.getIdsala().equals(idSala)) {
+                return sala;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Ocupa una sala con los ocupantes y cita especificados.
+     * @param idSala Identificador de la sala a ocupar
+     * @param ocupantes Lista de personas que ocuparán la sala
+     * @param cita Cita médica asociada
+     * @return true si se ocupó correctamente, false si la sala no existe o no está disponible
+     */
+    public boolean ocuparSala(String idSala, ArrayList<Persona> ocupantes, Cita cita) {
+        Sala sala = buscarSala(idSala);
+        if(sala != null && sala.getDisponibilidad() && ocupantes != null && !ocupantes.isEmpty()) {
+            for(Persona persona : ocupantes) {
+                sala.agregarOcupante(persona);
+            }
+            sala.setCita(cita);
+            sala.setDisponibilidad(false);
+            return true;
+        }
+        return false;
+    }
+
+    // ==================== GESTIÓN DE CITAS ====================
+
+    /**
+     * Obtiene la lista completa de citas.
+     * @return Copia defensiva de la lista de citas
      */
     public ArrayList<Cita> getCitas() {
-        return citas;
+        return new ArrayList<>(citas);
     }
 
     /**
-     * Reemplaza toda la lista de citas del hospital.
-     * @param citas Nueva lista de citas a asignar.
-     */
-    public void setCitas(ArrayList<Cita> citas) {
-        this.citas = citas;
-    }
-
-    /**
-     * Agrega una nueva cita al sistema del hospital.
-     * @param cita Cita a agregar.
-     * @return true si se agregó correctamente, false si ya existía una cita con el mismo ID.
+     * Agrega una nueva cita al sistema.
+     * @param cita Cita a agregar (no nula)
+     * @return true si se agregó correctamente, false si ya existía
      */
     public boolean agregarCita(Cita cita) {
-        if (buscarCita(cita.getId()) == null) {
-            return citas.add(cita);
+        if(buscarCita(cita.getId()) != null) {
+            if(buscarCita(cita.getId()) == null) {
+                return citas.add(cita);
+            }
         }
         return false;
     }
 
     /**
      * Busca una cita por su ID.
-     * @param id Identificador único de la cita.
-     * @return La cita encontrada o null si no existe.
+     * @param id Identificador de la cita
+     * @return Cita encontrada o null si no existe
      */
     public Cita buscarCita(String id) {
-        for (Cita cita : citas) {
-            if (cita.getId().equals(id)) {
+        for(Cita cita : citas) {
+            if(cita.getId().equals(id)) {
                 return cita;
             }
         }
@@ -135,28 +288,51 @@ public class Hospital {
 
     /**
      * Modifica los datos de una cita existente.
-     * @param cita Cita con los nuevos datos a actualizar.
-     * @return true si se modificó correctamente, false si la cita no existía.
+     * @param cita Cita con datos actualizados
+     * @return true si se modificó correctamente, false si no existía
      */
     public boolean modificarCita(Cita cita) {
-        Cita citaExistente = buscarCita(cita.getId());
-        if (citaExistente != null) {
-            citas.remove(citaExistente);
-            return citas.add(cita);
+        if(buscarCita(cita.getId()) != null) {
+            Cita existente = buscarCita(cita.getId());
+            if(existente != null) {
+                citas.remove(existente);
+                return citas.add(cita);
+            }
         }
         return false;
     }
 
     /**
      * Elimina una cita del sistema.
-     * @param id Identificador de la cita a eliminar.
-     * @return true si se eliminó correctamente, false si la cita no existía.
+     * @param id Identificador de la cita a eliminar
+     * @return true si se eliminó correctamente, false si no existía
      */
     public boolean eliminarCita(String id) {
         Cita cita = buscarCita(id);
-        if (cita != null) {
+        if(cita != null) {
             return citas.remove(cita);
         }
         return false;
+    }
+
+    // ==================== MÉTODOS AUXILIARES ====================
+
+    /**
+     * Verifica si el hospital tiene salas disponibles.
+     * @return true si hay al menos una sala disponible, false en caso contrario
+     */
+    public boolean haySalasDisponibles() {
+        for(Sala sala : salas) {
+            if(sala.getDisponibilidad()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Hospital [Nombre: %s, Salas: %d, Pacientes: %d, Citas: %d]",
+                nombre, n_salas, pacientes.size(), citas.size());
     }
 }

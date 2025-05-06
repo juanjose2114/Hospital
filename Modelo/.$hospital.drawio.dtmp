@@ -317,7 +317,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="iyDCKwab4HDldKOzO4v1-0" value="listPaciente&lt;div&gt;listMedico&lt;/div&gt;&lt;div&gt;listAdministrador&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="140" y="196" width="110" height="60" as="geometry" />
+          <mxGeometry x="70" y="200" width="110" height="60" as="geometry" />
         </mxCell>
         <mxCell id="pJ4SHUbWBki8w3rxmo4o-1" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hGoOlc2HoyurlGsYG0Kk-10" target="6fZR-xP43VUvMqLJVKyc-32">
           <mxGeometry width="50" height="50" relative="1" as="geometry">

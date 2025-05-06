@@ -83,4 +83,6 @@ public class Administrador extends Persona {
     public void setTelefono(String telefono) {
         super.setTelefono(telefono);
     }
+
+
 }
