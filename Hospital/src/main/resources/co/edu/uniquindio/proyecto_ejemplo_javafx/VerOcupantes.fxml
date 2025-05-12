@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6a9cde;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyecto_ejemplo_javafx.controler.VerOcupantesControler">
+   <children>
+      <TableView layoutX="14.0" layoutY="158.0" prefHeight="200.0" prefWidth="273.0">
+         <columns>
+            <TableColumn fx:id="cln_idcita" prefWidth="102.39996337890625" text="Nombre" />
+            <TableColumn fx:id="cln_fecha" prefWidth="96.79998779296875" text="Cedula" />
+            <TableColumn fx:id="cln_estado" prefWidth="74.4000244140625" text="Cargo" />
+         </columns>
+      </TableView>
+      <Label layoutX="292.0" layoutY="199.0" text="nombre" />
+      <Label layoutX="292.0" layoutY="231.0" text="apellido" />
+      <Label layoutX="292.0" layoutY="265.0" text="cedula" />
+      <Label layoutX="292.0" layoutY="297.0" text="telefono" />
+      <TextField fx:id="txt_nombre" layoutX="337.0" layoutY="195.0" prefHeight="26.0" prefWidth="130.0" />
+      <TextField fx:id="txt_apellido" layoutX="337.0" layoutY="227.0" prefHeight="26.0" prefWidth="130.0" />
+      <TextField fx:id="txt_id" layoutX="337.0" layoutY="261.0" prefHeight="26.0" prefWidth="130.0" />
+      <TextField fx:id="txt_telefono" layoutX="337.0" layoutY="293.0" prefHeight="26.0" prefWidth="130.0" />
+      <Label layoutX="27.0" layoutY="18.0" text="logo h" />
+      <Button fx:id="btn_volver" layoutX="538.0" layoutY="14.0" mnemonicParsing="false" text="volver" />
+      <Label layoutX="125.0" layoutY="63.0" text="Ocupantes de la sala: ">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_nombre1" layoutX="334.0" layoutY="57.0" prefHeight="43.0" prefWidth="174.0" promptText="id sala">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Button layoutX="504.0" layoutY="209.0" mnemonicParsing="false" text="Actualizar" />
+      <Button layoutX="508.0" layoutY="245.0" mnemonicParsing="false" text="Agregar" />
+      <Button layoutX="508.0" layoutY="279.0" mnemonicParsing="false" text="Eliminar" />
+   </children>
+</AnchorPane>

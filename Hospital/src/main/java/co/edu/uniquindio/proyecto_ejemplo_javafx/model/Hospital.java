@@ -139,6 +139,13 @@ public class Hospital {
         return false;
     }
 
+    public boolean eliminarAdministrador(String id) {
+        if (buscarAdministrador(id) != null) {
+            return administradores.remove(buscarAdministrador(id));
+        }
+        return false;
+    }
+
     // ==================== GESTIÓN DE PACIENTES ====================
 
     /**

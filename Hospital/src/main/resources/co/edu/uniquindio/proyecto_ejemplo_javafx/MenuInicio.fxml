@@ -3,10 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6a9cde;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyecto_ejemplo_javafx.MenuInicio">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #6a9cde;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyecto_ejemplo_javafx.controler.MenuInicioController">
    <children>
-      <Button fx:id="btn_iniciarSecion" layoutX="340.0" layoutY="161.0" mnemonicParsing="false" text="Iniciar Sesión" />
-      <Button fx:id="btn_registrarse" layoutX="347.0" layoutY="223.0" mnemonicParsing="false" text="registrarse" />
+      <Button fx:id="btn_iniciarSecion" layoutX="399.0" layoutY="187.0" mnemonicParsing="false" text="Iniciar Sesión" />
       <Label layoutX="136.0" layoutY="178.0" text="inserte logo H" />
       <Label layoutX="155.0" layoutY="227.0" text="Trabajando por su salud" />
    </children>
