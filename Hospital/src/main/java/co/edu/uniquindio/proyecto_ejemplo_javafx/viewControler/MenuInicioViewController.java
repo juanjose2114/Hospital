@@ -24,7 +24,7 @@ public class MenuInicioViewController {
     @FXML
     public void initialize(){
         this.app = app;
-        menuInicioController = new MenuInicioController(app.hospital);
+        menuInicioController = new MenuInicioController();
     }
 
     public void configurarBotones() {

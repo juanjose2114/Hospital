@@ -1,72 +1,108 @@
 package co.edu.uniquindio.proyecto_ejemplo_javafx;
 
-import co.edu.uniquindio.proyecto_ejemplo_javafx.controler.PrimaryController;
+import co.edu.uniquindio.proyecto_ejemplo_javafx.controler.MenuInicioController;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.viewControler.MenuInicioViewController;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Hospital;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Administrador;
 
+// Importes de JavaFX para JDK 23
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class App extends Application {
 
     private Stage primaryStage;
     public static Hospital hospital = new Hospital("san juan pepe fernando muñoz", 15);
 
+
+
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage primaryStage) throws IOException {
 
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Menu de inicio Hospital");
         openViewMenuInicio();
     }
+    public void openViewMenuInicio() {
+        try {
+            // Debug: Imprime la ruta absoluta donde busca
+            String fxmlPath = "MenuInicio.fxml";
+            System.out.println("Buscando FXML en: " +
+                    new File("src/main/resources" + fxmlPath).getAbsolutePath());
 
-    public void openViewMenuInicio(){
-        inicializarData();
-        try{
+            // Carga el FXML usando ClassLoader
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("primary.fxml"));
-            javafx.scene.layout.VBox rootLayout = (javafx.scene.layout.VBox) loader.load();
-            PrimaryController primaryController = loader.getController();
-            primaryController.setApp(this);
+            URL resourceUrl = getClass().getResource(fxmlPath);
+            if (resourceUrl == null) {
+                throw new RuntimeException("Archivo FXML no encontrado en: " + fxmlPath);
+            }
+            loader.setLocation(resourceUrl);
 
-            Scene scene = new Scene(rootLayout);
+            Parent root = loader.load();
+            MenuInicioController controller = loader.getController();
+            controller.setApp(this);
+
+            Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
-        } catch (IOException e){
-            // TODO Auto-generated catch block
+
+        } catch (Exception e) {
+            System.err.println("Error al cargar FXML:");
             e.printStackTrace();
+            showErrorAlert("Error fatal", "No se pudo cargar la interfaz: " + e.getMessage());
+            Platform.exit();
         }
     }
+
+    private void showErrorAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showErrorDialog(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showFatalError(Exception e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Fatal");
+        alert.setHeaderText("Error al iniciar la aplicación");
+        alert.setContentText(e.getMessage());
+        alert.showAndWait();
+    }
+
 
     public static void main(String[] args) {
-        launch();
+        Application.launch(args);
+        //launch();
     }
 
-    public void openHospitalMenuInicio(){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("hospital.fxml"));
-            AnchorPane rootLayout = (AnchorPane) loader.load();
-            MenuInicioViewController menuInicioViewController = loader.getController();
-            menuInicioViewController.setApp(this);
-
-            Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e){
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 
 
     public void inicializarData(){
-        Administrador admin1 = new Administrador("Juanjose", "Arias", "1092", "301364");
+        Administrador admin1 = new Administrador("nombre", "apellidio", "1", "1");
         hospital.crearAdministrador(admin1);
     }
 }
