@@ -12,14 +12,10 @@ public class MenuInicioViewController {
     public static Persona usuario;
     MenuInicioController menuInicioController;
 
+    private App app;
+
     @FXML
     private Button btn_iniciarSecion;
-
-    @FXML
-    private Button btn_registrarse;
-
-    @FXML
-    private App app;
 
     @FXML
     public void initialize(){
@@ -27,16 +23,14 @@ public class MenuInicioViewController {
         menuInicioController = new MenuInicioController();
     }
 
-    public void configurarBotones() {
-        btn_iniciarSecion.setOnAction(this::iniciarSesion);
-    }
-
-    public void iniciarSesion(ActionEvent event) {
-        App.launch("IniciarSesion");
-    }
-
-    public void registrarse(ActionEvent event) {
-        App.launch("Registrarse");
+    @FXML
+    public void openIniciarSesion(ActionEvent event){
+        if(app != null) {
+            app.openViewIniciarSesion();
+        } else {
+            System.err.println("Error: La referencia a App es nula");
+            throw new IllegalStateException("La referencia a App no ha sido establecida");
+        }
     }
 
     public void setApp(App app){

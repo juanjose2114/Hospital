@@ -30,6 +30,11 @@ public class Hospital {
     private ArrayList<Administrador> administradores;
 
     /**
+     * Lista de medicos del sistema hospitalario
+     */
+    private ArrayList<Medico> medicos;
+
+    /**
      * Nombre oficial del hospital.
      */
     private String nombre;
@@ -52,6 +57,7 @@ public class Hospital {
         this.nombre = nombre;
         this.pacientes = new ArrayList<>();
         this.administradores = new ArrayList<>();
+        this.medicos = new ArrayList<>();
         this.salas = new Sala[n_salas];
         this.citas = new ArrayList<>();
 
@@ -59,6 +65,10 @@ public class Hospital {
         for(int i = 0; i < n_salas; i++) {
             salas[i] = new Sala("" + i+1);
         }
+
+        //administrador principal, necesario para el manejo inicial del hospital
+        Administrador admin = new Administrador("Juan", "Arias", "1", "1");
+        administradores.add(admin);
     }
 
     // ==================== MÉTODOS BÁSICOS ====================
@@ -96,6 +106,10 @@ public class Hospital {
         return administradores;
     }
 
+    public ArrayList<Medico> getMedicos() {
+        return medicos;
+    }
+
     // ==================== GESTIÓN DE ADMINISTRADORES ====================
 
     /**
@@ -103,10 +117,12 @@ public class Hospital {
      * @param administrador Administrador a agregar (no nulo)
      * @return true si se agregó correctamente, false si ya existía
      */
-    public boolean crearAdministrador(Administrador administrador) {
-        if(buscarAdministrador(administrador.getNombre()) != null) {
-            if(buscarAdministrador(administrador.getId()) == null) {
-                return administradores.add(administrador);
+    public boolean crearAdministrador(String idAdmin, Administrador administrador) {
+        if(buscarAdministrador(idAdmin) != null) {
+            if(buscarAdministrador(administrador.getNombre()) != null) {
+                if (buscarAdministrador(administrador.getId()) == null) {
+                    return administradores.add(administrador);
+                }
             }
         }
         return false;
@@ -142,6 +158,64 @@ public class Hospital {
     public boolean eliminarAdministrador(String id) {
         if (buscarAdministrador(id) != null) {
             return administradores.remove(buscarAdministrador(id));
+        }
+        return false;
+    }
+
+    // ==================== GESTIÓN DE MEDICOS ====================
+
+    /**
+     * Crea y agrega un nuevo medico al sistema.
+     * @param medico Medico a agregar (no nulo)
+     * @return true si se agregó correctamente, false si ya existía
+     */
+    public boolean crearMedico(Medico medico) {
+        if(buscarMedico(medico.getNombre()) != null) {
+            if(buscarMedico(medico.getId()) == null) {
+                return medicos.add(medico);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Busca un medico por su ID.
+     * @param id Identificador del medico
+     * @return Medico encontrado o null si no existe
+     */
+    public Medico buscarMedico(String id) {
+        for(Medico medico : medicos) {
+            if(medico.getId().equals(id)) {
+                return medico;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Modifica los datos de un medico existente.
+     * @param medico Medico con datos actualizados
+     * @return true si se modificó correctamente, false si no existía
+     */
+    public boolean modificarMedico(Medico medico) {
+        if(buscarMedico(medico.getNombre()) != null) {
+            medicos.remove(buscarMedico(medico.getId()));
+            return medicos.add(medico);
+        }
+        return false;
+    }
+
+    /**
+     * Elimina un medico del sistema.
+     * @param idAdmin ID del administrador que realiza la operación
+     * @param idMedico Identificador del paciente a eliminar
+     * @return true si se eliminó correctamente, false si no existía o el admin no es válido
+     */
+    public boolean eliminarMedico(String idAdmin, String idMedico) {
+        if(buscarAdministrador(idAdmin) != null) {
+            if (buscarMedico(idMedico) != null) {
+                return medicos.remove(buscarMedico(idMedico));
+            }
         }
         return false;
     }

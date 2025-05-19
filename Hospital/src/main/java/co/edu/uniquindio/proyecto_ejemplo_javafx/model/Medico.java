@@ -7,7 +7,8 @@ package co.edu.uniquindio.proyecto_ejemplo_javafx.model;
 public class Medico extends Persona {
 
     // Atributo único del médico: su horario de atención
-    private String horario;
+    private String horarioinicio;
+    private String horariofin;
 
     /**
      * Constructor para crear un nuevo Médico.
@@ -15,11 +16,13 @@ public class Medico extends Persona {
      * @param apellido  Apellido del médico.
      * @param id        Identificación única (ej: cédula profesional).
      * @param telefono  Número de contacto.
-     * @param horario   Horario de atención (ej: "Lunes a Viernes, 9:00 - 17:00").
+     * @param horarioinicio   Horario de atención (ej: "Lunes a Viernes, 9:00 - 17:00").
      */
-    public Medico(String nombre, String apellido, String id, String telefono, String horario) {
+    public Medico(String nombre, String apellido, String id, String telefono, String horarioinicio, String horariofin) {
         super(nombre, apellido, id, telefono);  // Llama al constructor de Administrador
-        this.horario = horario;  // Asigna el horario específico del médico
+        this.horarioinicio = horarioinicio;
+        this.horariofin = horariofin;
+        // Asigna el horario específico del médico
     }
 
     // ==================== MÉTODOS ESPECÍFICOS DEL MÉDICO ====================
@@ -28,16 +31,22 @@ public class Medico extends Persona {
      * Obtiene el horario de atención del médico.
      * @return String con el horario (ej: "Lunes a Viernes, 9:00 - 17:00").
      */
-    public String getHorario() {
-        return horario;
+    public String getHorarioinicio() {
+        return horarioinicio;
+    }
+    public String getHorariofin() {
+        return horariofin;
     }
 
     /**
      * Actualiza el horario de atención del médico.
-     * @param horario Nuevo horario (ej: "Martes y Jueves, 10:00 - 18:00").
+     * @param horarioinicio Nuevo horario (ej: "Martes y Jueves, 10:00 - 18:00").
      */
-    public void setHorario(String horario) {
-        this.horario = horario;
+    public void setHorarioinicio(String horarioinicio) {
+        this.horarioinicio = horarioinicio;
+    }
+    public void setHorariofin(String horariofin) {
+        this.horariofin = horariofin;
     }
 
     // ==================== MÉTODOS HEREDADOS (GETTERS/SETTERS) ====================

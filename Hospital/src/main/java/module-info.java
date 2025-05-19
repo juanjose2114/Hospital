@@ -2,6 +2,7 @@ module co.edu.uniquindio.proyecto_ejemplo_javafx {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
+    requires java.desktop;
 
 
     opens co.edu.uniquindio.proyecto_ejemplo_javafx to javafx.fxml;
