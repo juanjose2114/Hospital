@@ -81,6 +81,14 @@ public class Sala {
         return disponibilidad;
     }
 
+    public String getDisponibilidadS(){
+        String s = "Ocupado";
+        if(disponibilidad) {
+            s = "Disponible";
+        }
+        return s;
+    }
+
     /**
      * Cambia el estado de disponibilidad de la sala.
      * @param disponibilidad Nuevo estado a asignar (true/false).
@@ -120,11 +128,9 @@ public class Sala {
         if(ocupante == null) {
             throw new IllegalArgumentException("El ocupante no puede ser nulo");
         }
-
         if(buscarOcupante(ocupante.getId()) != null) {
             return false;
         }
-
         return ocupantes.add(ocupante);
     }
 
@@ -196,5 +202,9 @@ public class Sala {
                 disponibilidad ? "Sí" : "No",
                 ocupantes.size(),
                 cita != null ? cita.getId() : "Ninguna");
+    }
+
+    public void vaciarSala(){
+        ocupantes.clear();
     }
 }

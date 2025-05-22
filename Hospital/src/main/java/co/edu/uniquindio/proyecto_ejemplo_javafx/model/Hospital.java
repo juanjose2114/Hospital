@@ -63,12 +63,21 @@ public class Hospital {
 
         // Inicializar salas con IDs consecutivos
         for(int i = 0; i < n_salas; i++) {
-            salas[i] = new Sala("" + i+1);
+            int n = i + 1;
+            String m = n + "";
+            salas[i] = new Sala(m);
         }
 
         //administrador principal, necesario para el manejo inicial del hospital
         Administrador admin = new Administrador("Juan", "Arias", "1", "1");
         administradores.add(admin);
+
+        //medico basico para comprobar funcionamiento
+        Medico medico1 = new Medico("medico1", "Basico", "id1", "123", "12", "13");
+        medicos.add(medico1);
+
+        Medico medico2 = new Medico("medico2", "Basico", "id2", "123", "13", "14");
+        medicos.add(medico2);
     }
 
     // ==================== MÉTODOS BÁSICOS ====================
@@ -170,11 +179,11 @@ public class Hospital {
      * @return true si se agregó correctamente, false si ya existía
      */
     public boolean crearMedico(Medico medico) {
-        if(buscarMedico(medico.getNombre()) != null) {
-            if(buscarMedico(medico.getId()) == null) {
-                return medicos.add(medico);
-            }
+        if(buscarMedico(medico.getId()) == null) {
+            System.out.println("medico creado");
+            return medicos.add(medico);
         }
+        System.out.println("medico no creado");
         return false;
     }
 
@@ -186,9 +195,11 @@ public class Hospital {
     public Medico buscarMedico(String id) {
         for(Medico medico : medicos) {
             if(medico.getId().equals(id)) {
+                System.out.println("medico buscado y retornado");
                 return medico;
             }
         }
+        System.out.println("medico no encontrado");
         return null;
     }
 
@@ -199,9 +210,11 @@ public class Hospital {
      */
     public boolean modificarMedico(Medico medico) {
         if(buscarMedico(medico.getNombre()) != null) {
+            System.out.println("medico modificado");
             medicos.remove(buscarMedico(medico.getId()));
             return medicos.add(medico);
         }
+        System.out.println("medico no encontrado");
         return false;
     }
 
@@ -313,20 +326,32 @@ public class Hospital {
      * Ocupa una sala con los ocupantes y cita especificados.
      * @param idSala Identificador de la sala a ocupar
      * @param ocupantes Lista de personas que ocuparán la sala
-     * @param cita Cita médica asociada
+     * @param idcita Cita médica asociada
      * @return true si se ocupó correctamente, false si la sala no existe o no está disponible
      */
-    public boolean ocuparSala(String idSala, ArrayList<Persona> ocupantes, Cita cita) {
+    public boolean ocuparSala(String idSala, ArrayList<Persona> ocupantes, String idcita){
         Sala sala = buscarSala(idSala);
-        if(sala != null && sala.getDisponibilidad() && ocupantes != null && !ocupantes.isEmpty()) {
-            for(Persona persona : ocupantes) {
-                sala.agregarOcupante(persona);
+        if(sala != null){
+            if (!ocupantes.isEmpty()){
+                for(Persona persona : ocupantes) {
+                    sala.agregarOcupante(persona);
+                }
             }
-            sala.setCita(cita);
-            sala.setDisponibilidad(false);
+            if (!idcita.isBlank()) {
+                sala.setCita(buscarCita(idcita));
+            }
             return true;
         }
         return false;
+    }
+
+    public void vaciarSala(String idSala){
+        Sala sala = buscarSala(idSala);
+        if(sala != null){
+            sala.setCita(null);
+            sala.setDisponibilidad(true);
+            sala.vaciarSala();
+        }
     }
 
     // ==================== GESTIÓN DE CITAS ====================
@@ -416,4 +441,6 @@ public class Hospital {
         return String.format("Hospital [Nombre: %s, Salas: %d, Pacientes: %d, Citas: %d]",
                 nombre, n_salas, pacientes.size(), citas.size());
     }
+
+
 }

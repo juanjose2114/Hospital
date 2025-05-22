@@ -61,7 +61,6 @@ public class IniciarSesionViewControler {
 
     @FXML
     public void initialize(){
-        this.app = app;
         iniciarSesionControler = new IniciarSesionControler();
     }
 

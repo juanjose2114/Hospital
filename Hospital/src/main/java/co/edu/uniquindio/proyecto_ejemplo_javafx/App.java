@@ -59,6 +59,19 @@ public class App extends Application {
                 case "Medicos.fxml":
                     MedicosViewControler controller6 = loader.getController();
                     controller6.setApp(this, hospital.buscarAdministrador(usuario));
+                    break;
+                case "Error.fxml":
+                    ErrorViewControler controller7 = loader.getController();
+                    controller7.setApp(this, usuario);
+                    break;
+                case "Salas.fxml":
+                    SalasViewControler controller8 = loader.getController();
+                    controller8.setApp(this, hospital.buscarAdministrador(usuario));
+                    break;
+
+
+
+
 
             }
             Scene scene = new Scene(root);
@@ -67,8 +80,9 @@ public class App extends Application {
         } catch (Exception e) {
             System.err.println("Error al cargar FXML:");
             e.printStackTrace();
-            showErrorAlert("Error fatal", "No se pudo cargar la interfaz: " + e.getMessage());
-            Platform.exit();
+            showErrorAlert("Error fatal", "No se pudo cargar la interfaz:" + e.getMessage());
+            System.out.println(e.getMessage());
+            openViewError("No se pudo cargar la interfaz:" + e.getMessage());
         }
     }
 
@@ -76,17 +90,12 @@ public class App extends Application {
         openView("MenuMedicos.fxml", usuario);
     }
 
-
     public void openViewAdministradores(String usuario){
         openView("Administradores.fxml", usuario);
     }
 
-    public void openViewError(String usuario){
-        openView("Error.fxml", usuario);
-    }
-
-    public void openViewHorario(String usuario){
-        openView("Horario.fxml", usuario);
+    public void openViewError(String msg){
+        openView("Error.fxml", msg);
     }
 
     public void openViewIniciarSesion() {
@@ -127,10 +136,31 @@ public class App extends Application {
 
     public void openViewSalas(String usuario) {
         openView("Salas.fxml", usuario);
+
     }
 
-    public void openViewVerOcupanetes(String usuario){
-        openView("VerOcupanetes.fxml", "");
+    public void openViewVerOcupanetes(String usuario, String idSala){
+        try{
+            String fxmlPath = "VerOcupantes.fxml";
+            FXMLLoader loader = new FXMLLoader();
+            URL resourceUrl = getClass().getResource(fxmlPath);
+            if (resourceUrl == null) {
+                throw new RuntimeException("Archivo FXML no encontrado en: " + fxmlPath);
+            }
+            loader.setLocation(resourceUrl);
+            Parent root = loader.load();
+            VerOcupantesViewControler controler = loader.getController();
+            controler.setApp(this, hospital.buscarAdministrador(usuario), hospital.buscarSala(idSala));
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
+            System.err.println("Error al cargar FXML:");
+            e.printStackTrace();
+            showErrorAlert("Error fatal", "No se pudo cargar la interfaz:" + e.getMessage());
+            System.out.println(e.getMessage());
+            openViewError("No se pudo cargar la interfaz:" + e.getMessage());
+        }
     }
 
 
