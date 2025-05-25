@@ -47,11 +47,11 @@
       <TextArea fx:id="txa_historial" layoutX="268.0" layoutY="561.0" prefHeight="99.0" prefWidth="169.0" />
       <Label layoutX="327.0" layoutY="285.0" text="distintivo de la cita" />
       <Label layoutX="327.0" layoutY="338.0" text="Fecha: DD            MM          AA" />
-      <Button fx:id="btn_actualizarHistorial" layoutX="268.0" layoutY="672.0" mnemonicParsing="false" onAction="#actualizarHistorial" text="Agregar" />
+      <Button fx:id="btn_agregarHistorial" layoutX="268.0" layoutY="672.0" mnemonicParsing="false" onAction="#agregarHistorial" text="Agregar" />
       <TextArea fx:id="txa_tratamiento" layoutX="750.0" layoutY="561.0" prefHeight="99.0" prefWidth="169.0" />
-      <Button fx:id="btn_actualizarTratamiento" layoutX="750.0" layoutY="672.0" mnemonicParsing="false" onAction="#actualizarTratamiento" text="Agregar" />
+      <Button fx:id="btn_agregarTratamiento" layoutX="750.0" layoutY="672.0" mnemonicParsing="false" onAction="#agregarTratamiento" text="Agregar" />
       <Button fx:id="btn_actualizarDatos" layoutX="343.0" layoutY="204.0" mnemonicParsing="false" onAction="#actualizarDatos" text="Actualizar" />
-      <Button layoutX="362.0" layoutY="672.0" mnemonicParsing="false" text="Eliminar" />
-      <Button layoutX="846.0" layoutY="672.0" mnemonicParsing="false" text="Elimiar" />
+      <Button fx:id="btn_eliminarHistorial" layoutX="362.0" layoutY="672.0" mnemonicParsing="false" onAction="#eliminarHistorial" text="Eliminar" />
+      <Button fx:id="btn_eliminarTratamiento" layoutX="846.0" layoutY="672.0" mnemonicParsing="false" onAction="#eliminarTratamiento" text="Elimiar" />
    </children>
 </AnchorPane>

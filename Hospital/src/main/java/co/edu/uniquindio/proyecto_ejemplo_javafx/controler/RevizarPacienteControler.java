@@ -25,6 +25,34 @@ public class RevizarPacienteControler {
 
 //------------------------------------------------------------------------
 
+    public void agregarHistorial(String msg, String id){
+        hospital.buscarPaciente(id).agregarHistorialClinico(msg);
+    }
+
+
+    public void eliminarHistorial(String msg, String id){
+        for (String s : hospital.buscarPaciente(id).getHistorialClinico()) {
+            if (s.equals(msg)) {
+                hospital.buscarPaciente(id).eliminarHistorialClinico(s);
+                return;
+            }
+        }
+    }
+
+    public void agregarTratamiento(String msg, String id){
+        hospital.buscarPaciente(id).agregarTratamiento(msg);
+    }
+
+    public void eliminarTratamiento(String msg, String id){
+        for (String s : hospital.buscarPaciente(id).getTratamientos()) {
+            if (s.equals(msg)) {
+                hospital.buscarPaciente(id).eliminartratamiento(msg);
+            }
+        }
+    }
+
+//------------------------------------------------------------------------
+
     public void setNombre(String id, String nombre){
         hospital.buscarPaciente(id).setNombre(nombre);
     }

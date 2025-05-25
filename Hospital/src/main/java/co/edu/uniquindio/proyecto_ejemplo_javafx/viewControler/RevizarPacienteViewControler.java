@@ -114,6 +114,22 @@ public class RevizarPacienteViewControler {
     }
 
     @FXML
+    public void actualizarDatos(){
+        if (!txt_id.getText().isBlank()){
+            if (!txt_nombre.getText().isBlank()){
+                controler.setNombre(paciente.getId(), txt_nombre.getText());
+            }
+            if (!txt_apellido.getText().isBlank()){
+                controler.setApellido(paciente.getId(), txt_apellido.getText());
+            }
+            if (!txt_telefono.getText().isBlank()){
+                controler.setTelefono(paciente.getId(), txt_telefono.getText());
+            }
+        }
+        initVoid();
+    }
+
+    @FXML
     public void agregarCita(){
         if (!txt_id.getText().isBlank()) {
             controler.agregarCita(txt_diaCita.getText(), txt_mesCita.getText(), txt_yearCita.getText(), txt_idCita.getText(), paciente.getId());
@@ -130,19 +146,36 @@ public class RevizarPacienteViewControler {
     }
 
     @FXML
-    public void agregarHistorial(){}
+    public void agregarHistorial(){
+        if (!txa_historial.getText().isBlank()) {
+            controler.agregarHistorial(txa_historial.getText(), paciente.getId());
+        }
+        initVoid();
+    }
 
     @FXML
-    public void eliminarHistorial(){}
+    public void eliminarHistorial(){
+        if (!txa_historial.getText().isBlank()) {
+            controler.eliminarHistorial(txa_historial.getText(), paciente.getId());
+        }
+        initVoid();
+    }
 
     @FXML
-    public void agregarTratamiento(){}
+    public void agregarTratamiento(){
+        if (!txa_tratamiento.getText().isBlank()) {
+            controler.agregarTratamiento(txa_tratamiento.getText(), paciente.getId());
+        }
+        initVoid();
+    }
 
     @FXML
-    public void eliminarTratamiento(){}
-
-    @FXML
-    public void actualizarDatos(){}
+    public void eliminarTratamiento(){
+        if (!txa_tratamiento.getText().isBlank()) {
+            controler.eliminarTratamiento(txa_tratamiento.getText(), paciente.getId());
+        }
+        initVoid();
+    }
 
 
 
