@@ -110,12 +110,7 @@ public class MedicosViewControler {
     public void actualizarMedico() {
         String id = txt_id.getText();
         if (!id.isBlank()) {
-            String nombre = txt_nombre.getText();
-            String apellido = txt_apellido.getText();
-            String telefono = txt_telefono.getText();
-            if(!controler.actualizarMedico(nombre, apellido, id, telefono)){
-                JOptionPane.showMessageDialog(null, "Ingrese Medico no agregado, datos incorrectos");
-            }
+            controler.actualizarMedico(txt_nombre.getText(), txt_apellido.getText(), id, txt_telefono.getText());
         }
         initVoid();
     }
@@ -138,19 +133,21 @@ public class MedicosViewControler {
         initVoid();
     }
 
+    @FXML
+    public void limpiarSeleccion() {
+        tbl_medicos.getSelectionModel().clearSelection();
+        limpiarCamposMedico();
+        tbl_medicos.refresh();
+    }
+
+
+
     private void limpiarCamposMedico() {
         txt_id.clear();
         txt_nombre.clear();
         txt_apellido.clear();
         txt_telefono.clear();
 
-    }
-
-    @FXML
-    private void limpiarSeleccion() {
-        tbl_medicos.getSelectionModel().clearSelection();
-        limpiarCamposMedico();
-        tbl_medicos.refresh();
     }
 
     private void initDataBinding(){
@@ -172,7 +169,7 @@ public class MedicosViewControler {
         });
     }
 
-    public void mostrarMedico(Medico medicotbl) {
+    private void mostrarMedico(Medico medicotbl) {
         if (medicotbl != null) {
             txt_id.setText(medicotbl.getId());
             txt_nombre.setText(medicotbl.getNombre());
@@ -183,8 +180,7 @@ public class MedicosViewControler {
         }
     }
 
-    @FXML
-    public void initVoid() { //inincializacion de metodos para la tabla
+    private void initVoid() { //inincializacion de metodos para la tabla
         tbl_medicos.setItems(null);
         initDataBinding();
         obtenerMedicos();
