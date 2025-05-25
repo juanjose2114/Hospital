@@ -85,6 +85,15 @@ public class App extends Application {
                 case "Administradores.fxml":
                     AdministradoresViewControler controller12 = loader.getController();
                     controller12.setApp(this, hospital.buscarAdministrador(usuario));
+                    break;
+                case "Reporte.fxml":
+                    ReporteViewControler controller13 = loader.getController();
+                    //setApp
+                    break;
+                case "Recordatorio.fxml":
+                    RecordatorioViewControler controller14 = loader.getController();
+                    controller14.setApp(this, hospital.buscarAdministrador(usuario));
+                    break;
             }
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
