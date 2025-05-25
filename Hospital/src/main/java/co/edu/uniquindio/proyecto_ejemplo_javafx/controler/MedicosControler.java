@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto_ejemplo_javafx.controler;
 
+import co.edu.uniquindio.proyecto_ejemplo_javafx.App;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Administrador;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Hospital;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Medico;
@@ -10,11 +11,8 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class MedicosControler {
-    Hospital hospital;
 
-    public MedicosControler(Hospital hospital) {
-        this.hospital = hospital;
-    }
+    Hospital hospital = App.hospital;
 
     public Collection<Medico> getMedicos(){
         return hospital.getMedicos();

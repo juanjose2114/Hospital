@@ -20,7 +20,7 @@ public class SalasViewControler {
 
     App app;
     Administrador administrador;
-    Hospital hospital;
+    Hospital hospital = App.hospital;
     SalasControler controler;
     Sala salatbl;
 
@@ -114,6 +114,14 @@ public class SalasViewControler {
         txt_estado.clear();
     }
 
+    public void mostrarSala(Sala salatbl){
+        if (salatbl != null) {
+            txt_idsala.setText(salatbl.getIdsala());
+            txt_estado.setText(salatbl.getDisponibilidadS());
+            txt_idcita.setText(salatbl.getCita().getId());
+        }
+    }
+
     private void initDataBinding(){
         cln_idsala.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdsala()));
         cln_estado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDisponibilidadS()));
@@ -125,18 +133,10 @@ public class SalasViewControler {
         salas.addAll(controler.getSalas());
     }
 
-    public void mostrarSala(){
-        if (salatbl != null) {
-            txt_idsala.setText(salatbl.getIdsala());
-            txt_estado.setText(salatbl.getDisponibilidadS());
-            txt_idcita.setText(salatbl.getOcupantes().toString());
-        }
-    }
-
     private void listSelection(){
         tbl_salas.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             salatbl = newValue;
-            mostrarSala();
+            mostrarSala(salatbl);
         });
     }
 
@@ -151,14 +151,13 @@ public class SalasViewControler {
     }
 
     public void initialize(){
-        this.hospital = App.hospital;
         controler = new SalasControler();
-        initVoid();
     }
 
     public void setApp(App app, Administrador admin){
         this.app = app;
         this.administrador = admin;
+        initVoid();
     }
 
 }

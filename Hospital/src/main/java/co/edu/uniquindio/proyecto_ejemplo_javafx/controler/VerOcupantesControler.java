@@ -4,6 +4,9 @@ import co.edu.uniquindio.proyecto_ejemplo_javafx.App;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 import static co.edu.uniquindio.proyecto_ejemplo_javafx.App.hospital;
 
@@ -24,8 +27,23 @@ public class VerOcupantesControler {
         return "Persona";
     }
 
-    public ArrayList<Persona> getPersonas(String idSala){
-        return new ArrayList<>(hospital.buscarSala(idSala).getOcupantes());
+    /**
+     * Obtiene los ocupantes de una sala
+     * @param idSala Identificador de la sala (no debe ser null)
+     * @return Colección de personas (nunca null, puede estar vacía)
+     */
+    public Collection<Persona> getPersonas(String idSala){
+        Sala sala = hospital.buscarSala(idSala);
+        if (sala == null) {
+            System.err.println("Advertencia: La sala es nula en obtenerPersona()");
+            return Collections.emptyList();
+        }
+        try {
+            return sala.getOcupantes();
+        } catch (NullPointerException e) {
+            System.err.println("Error al obtener ID de sala: " + e.getMessage());
+            return Collections.emptyList();
+        }
     }
 
     public void actualizarPersona(String id, String nombre, String apellido, String telefono, String idSala){
@@ -40,7 +58,7 @@ public class VerOcupantesControler {
 
     public void agregarPersona(String idPersona, String idSala, String idAdmin){
         System.out.println("2");
-        Persona persona = hospital.buscarPaciente(idAdmin, idPersona);
+        Persona persona = hospital.buscarPaciente(idPersona);
         if (persona != null){
             hospital.buscarSala(idSala).agregarOcupante(persona);
         } else {
@@ -57,7 +75,7 @@ public class VerOcupantesControler {
     }
 
     public void sacarPersona(String idPersona, String idSala){
-        for (Persona p : getPersonas(idPersona)){
+        for (Persona p : getPersonas(idSala)){
             if (p.getId().equals(idPersona)){
                 hospital.buscarSala(idSala).eliminarOcupante(idPersona);
                 break;

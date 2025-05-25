@@ -24,9 +24,11 @@ public class MedicosViewControler {
     Administrador administrador;
     MedicosControler controler;
     Medico medicotbl;
-    Hospital hospital;
+    Hospital hospital = App.hospital;
 
     ObservableList<Medico> medicos = FXCollections.observableArrayList();
+
+//------------------------------------------------------------------
 
     @FXML
     public Button btn_volver;
@@ -79,6 +81,9 @@ public class MedicosViewControler {
     @FXML
     public Button btn_eliminar;
 
+//------------------------------------------------------------------
+
+
     @FXML
     public void volver(){
         app.openViewMenuAdministrador(administrador.getId());
@@ -105,7 +110,7 @@ public class MedicosViewControler {
     @FXML
     public void actualizarMedico() {
         String id = txt_id.getText();
-        if (id.isBlank()) {
+        if (!id.isBlank()) {
             String nombre = txt_nombre.getText();
             String apellido = txt_apellido.getText();
             String telefono = txt_telefono.getText();
@@ -128,27 +133,10 @@ public class MedicosViewControler {
     }
 
     @FXML
-    private void limpiarSeleccion() {
-        tbl_medicos.getSelectionModel().clearSelection();
-        limpiarCamposMedico();
-        tbl_medicos.refresh();
-    }
-
-    @FXML
     public void eliminarMedico() {
         String medico = txt_id.getText();
         controler.eliminarMedico(administrador, controler.buscarMedico(medico));
         initVoid();
-    }
-
-    @FXML
-    public void initVoid() { //inincializacion de metodos para la tabla
-        tbl_medicos.setItems(null);
-        initDataBinding();
-        obtenerMedicos();
-        tbl_medicos.refresh();
-        tbl_medicos.setItems(medicos);
-        listSelection();
     }
 
     private void limpiarCamposMedico() {
@@ -156,6 +144,32 @@ public class MedicosViewControler {
         txt_nombre.clear();
         txt_apellido.clear();
         txt_telefono.clear();
+    }
+
+    @FXML
+    private void limpiarSeleccion() {
+        tbl_medicos.getSelectionModel().clearSelection();
+        limpiarCamposMedico();
+        tbl_medicos.refresh();
+    }
+
+    private void initDataBinding(){
+        cln_Id.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+        cln_Telefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
+        cln_Apellido.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApellido()));
+        cln_Nombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+    }
+
+    private void obtenerMedicos() {
+        medicos.clear();
+        medicos.addAll(controler.getMedicos());
+    }
+
+    private void listSelection(){
+        tbl_medicos.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            medicotbl = newValue;
+            mostrarMedico(medicotbl);
+        });
     }
 
     public void mostrarMedico(Medico medicotbl) {
@@ -169,35 +183,23 @@ public class MedicosViewControler {
         }
     }
 
-    private void initDataBinding(){
-        cln_Id.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
-        cln_Telefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
-        cln_Apellido.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApellido()));
-        cln_Nombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
-
-    }
-
-    private void obtenerMedicos() {
-        medicos.clear();
-        medicos.addAll(controler.getMedicos());
-
-    }
-
-    private void listSelection(){
-        tbl_medicos.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            medicotbl = newValue;
-            mostrarMedico(medicotbl);
-        });
+    @FXML
+    public void initVoid() { //inincializacion de metodos para la tabla
+        tbl_medicos.setItems(null);
+        initDataBinding();
+        obtenerMedicos();
+        tbl_medicos.refresh();
+        tbl_medicos.setItems(medicos);
+        listSelection();
     }
 
     public void initialize(){
-        this.hospital = App.hospital;
-        controler = new MedicosControler(hospital);
-        initVoid();
+        controler = new MedicosControler();
     }
 
     public void setApp(App app, Administrador admin) {
         this.app = app;
         this.administrador = admin;
+        initVoid();
     }
 }

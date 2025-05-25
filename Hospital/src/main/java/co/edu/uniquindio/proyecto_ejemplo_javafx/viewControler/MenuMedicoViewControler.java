@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto_ejemplo_javafx.viewControler;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.App;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.controler.MenuMedicoControler;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Medico;
+import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Paciente;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -11,7 +12,7 @@ import javafx.scene.control.TextField;
 public class MenuMedicoViewControler {
 
     MenuMedicoControler controler;
-    static Medico medico;
+    Medico medico;
     private App app;
 
     @FXML
@@ -59,10 +60,21 @@ public class MenuMedicoViewControler {
     }
 
     @FXML
+    public void revizarPaciente(){
+        if(!txt_idpacientebuscar.getText().isEmpty()){
+            app.openViewRevizarPaciente(medico.getId(), txt_idpacientebuscar.getText());
+        }
+    }
+
+    @FXML
     public void actualizarHorario(){
         if(!txt_horainicio.getText().isEmpty()){
             medico.setHorarioinicio(txt_horainicio.getText());
         }
+        if(!txt_horafin.getText().isEmpty()){
+            medico.setHorariofin(txt_horafin.getText());
+        }
+        initVoid();
     }
 
     @FXML
@@ -76,16 +88,27 @@ public class MenuMedicoViewControler {
         if(!txt_telefono.getText().isEmpty()){
             medico.setTelefono(txt_telefono.getText());
         }
+        initVoid();
+    }
+
+
+    public void initVoid(){
+        txt_nombre.setText(medico.getNombre());
+        txt_apellido.setText(medico.getApellido());
+        txt_id.setText(medico.getId());
+        txt_telefono.setText(medico.getTelefono());
+        txt_horainicio.setText(medico.getHorarioinicio());
+        txt_horafin.setText(medico.getHorariofin());
     }
 
     @FXML
     public void initialize(){
-        this.app = app;
         controler = new MenuMedicoControler();
     }
 
     public void setApp(App app, Medico medico) {
         this.app = app;
         this.medico = medico;
+        initVoid();
     }
 }

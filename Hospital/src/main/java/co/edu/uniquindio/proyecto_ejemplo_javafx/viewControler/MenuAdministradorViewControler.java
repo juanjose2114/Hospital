@@ -1,13 +1,14 @@
 package co.edu.uniquindio.proyecto_ejemplo_javafx.viewControler;
 
 import co.edu.uniquindio.proyecto_ejemplo_javafx.App;
+import co.edu.uniquindio.proyecto_ejemplo_javafx.controler.MenuMedicoControler;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Administrador;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class MenuAdministradorViewControler {
 
-    MenuMedicoViewControler controler;
+    MenuMedicoControler controler;
     Administrador administrador;
     private App app;
 
@@ -105,7 +106,7 @@ public class MenuAdministradorViewControler {
 
     @FXML
     public void initialize() {
-        controler = new MenuMedicoViewControler();
+        controler = new MenuMedicoControler();
     }
 
     public void setApp(App app, Administrador administrador){

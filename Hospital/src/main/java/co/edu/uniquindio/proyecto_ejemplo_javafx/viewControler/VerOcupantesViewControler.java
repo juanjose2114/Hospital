@@ -2,13 +2,13 @@ package co.edu.uniquindio.proyecto_ejemplo_javafx.viewControler;
 
 import co.edu.uniquindio.proyecto_ejemplo_javafx.App;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.controler.VerOcupantesControler;
+import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Administrador;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import java.awt.*;
 
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,16 +19,16 @@ public class VerOcupantesViewControler {
 
     App app;
     Administrador administrador;
-    VerOcupantesControler controler;
-    Hospital hospital;
-    Persona personatbl;
     Sala sala;
+    Hospital hospital = App.hospital;
+    VerOcupantesControler controler;
+    Persona personatbl;
 
     ObservableList<Persona> ocupantes = FXCollections.observableArrayList();
 
 
     @FXML
-    public Button volver;
+    public Button btn_volver;
 
     @FXML
     public TextField txt_idsala;
@@ -96,9 +96,9 @@ public class VerOcupantesViewControler {
         cln_cargoOcupante.setCellValueFactory(cellData -> new SimpleStringProperty(controler.getInstance(cellData.getValue())));
     }
 
-    private void obtenerMedicos(){
+    private void obtenerPersona(){
         ocupantes.clear();
-        ocupantes.addAll(controler.getPersonas(txt_idsala.getText()));
+        ocupantes.addAll(controler.getPersonas(sala.getIdsala()));
     }
 
     private void listSelection(){
@@ -108,26 +108,11 @@ public class VerOcupantesViewControler {
         });
     }
 
-    @FXML
-    private void limpiarSelecion(){
-        tbl_ocupantes.getSelectionModel().clearSelection();
-        limpiarCampos();
-        tbl_ocupantes.refresh();
-    }
-
-    private void limpiarCampos(){
-        txt_nombre.clear();
-        txt_apellido.clear();
-        txt_idsala.clear();
-        txt_telefono.clear();
-        txt_idsala.setText(sala.getIdsala());
-    }
-
     private void mostrarPersona(Persona persona){
         if(persona != null){
             txt_nombre.setText(persona.getNombre());
             txt_apellido.setText(persona.getApellido());
-            txt_idsala.setText(persona.getId());
+            txt_id.setText(persona.getId());
             txt_telefono.setText(persona.getTelefono());
             txt_idsala.setText(sala.getIdsala());
         }
@@ -138,16 +123,21 @@ public class VerOcupantesViewControler {
     public void initVoid(){
         tbl_ocupantes.setItems(null);
         initDataBinding();
-        obtenerMedicos();
+        obtenerPersona();
         tbl_ocupantes.refresh();
         tbl_ocupantes.setItems(ocupantes);
         listSelection();
+    }
 
+    public void initialize(){
+        controler = new VerOcupantesControler();
     }
 
     public void setApp(App app, Administrador admin, Sala sala) {
         this.app = app;
-        this.sala = sala;
         this.administrador = admin;
+        this.sala = sala;
+        txt_idsala.setText(sala.getIdsala());
+        initVoid();
     }
 }

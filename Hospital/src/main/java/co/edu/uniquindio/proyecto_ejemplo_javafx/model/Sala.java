@@ -107,7 +107,7 @@ public class Sala {
      * @return ArrayList de Personas que ocupan la sala.
      */
     public ArrayList<Persona> getOcupantes() {
-        return new ArrayList<>(ocupantes);
+        return ocupantes;
     }
 
     /**

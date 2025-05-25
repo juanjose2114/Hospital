@@ -1,5 +1,9 @@
 package co.edu.uniquindio.proyecto_ejemplo_javafx.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -35,6 +39,11 @@ public class Paciente extends Persona {
     public LinkedList<String> getHistorialClinico() {
         return historialClinico;
     }
+
+    public ObservableList<String> getHistorialClinicoObservable() {
+        return FXCollections.observableList(historialClinico);
+    }
+
 
     /**
      * Reemplaza todo el historial clínico con una nueva lista.
@@ -107,6 +116,10 @@ public class Paciente extends Persona {
      */
     public LinkedList<String> getTratamientos() {
         return tratamientos;
+    }
+
+    public ObservableList<String> getTratamientosObservable() {
+        return FXCollections.observableList(tratamientos);
     }
 
     /**

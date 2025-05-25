@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="937.0" prefWidth="391.0" style="-fx-background-color: #6a9cde;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyecto_ejemplo_javafx.controler.RevizarPacienteControler">
+<AnchorPane prefHeight="937.0" prefWidth="574.0" style="-fx-background-color: #6a9cde;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.proyecto_ejemplo_javafx.viewControler.RevizarPacienteViewControler">
    <children>
-      <TableView layoutX="74.0" layoutY="269.0" prefHeight="200.0" prefWidth="225.0">
+      <TableView fx:id="tbl_cita" layoutX="74.0" layoutY="269.0" prefHeight="200.0" prefWidth="225.0">
          <columns>
             <TableColumn fx:id="cln_idcita" prefWidth="75.0" text="Cita" />
             <TableColumn fx:id="cln_fecha" prefWidth="75.0" text="fecha" />
             <TableColumn fx:id="cln_estado" prefWidth="75.0" text="Estado" />
          </columns>
       </TableView>
-      <TableView layoutX="74.0" layoutY="501.0" prefHeight="200.0" prefWidth="225.0">
+      <TableView fx:id="tbl_historial" layoutX="30.0" layoutY="498.0" prefHeight="200.0" prefWidth="225.0">
          <columns>
-            <TableColumn fx:id="cln_historialmedico" prefWidth="223.20001792907715" text="Historial Medico                                    " />
+            <TableColumn fx:id="cln_historial" prefWidth="223.20001792907715" text="Historial Medico                                    " />
          </columns>
       </TableView>
-      <TableView layoutX="74.0" layoutY="737.0" prefHeight="200.0" prefWidth="225.0">
+      <TableView fx:id="tbl_tratamiento" layoutX="509.0" layoutY="498.0" prefHeight="200.0" prefWidth="225.0">
          <columns>
             <TableColumn fx:id="cln_tratamiento" prefWidth="223.19998168945312" text="Tratamientos                                        " />
          </columns>
@@ -37,11 +32,26 @@
       <TextField fx:id="txt_id" layoutX="134.0" layoutY="172.0" />
       <TextField fx:id="txt_telefono" layoutX="134.0" layoutY="204.0" />
       <Label layoutX="24.0" layoutY="28.0" text="logo h" />
-      <Button fx:id="btn_volver" layoutX="329.0" layoutY="15.0" mnemonicParsing="false" text="volver" />
+      <Button fx:id="btn_volver" layoutX="770.0" layoutY="33.0" mnemonicParsing="false" onAction="#volver" text="volver" />
       <Label layoutX="102.0" layoutY="43.0" text="Menu Paciente">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
+      <TextField fx:id="txt_idCita" layoutX="353.0" layoutY="309.0" promptText="idCita" />
+      <TextField fx:id="txt_diaCita" layoutX="362.0" layoutY="356.0" prefHeight="26.0" prefWidth="42.0" promptText="Dia" />
+      <Button fx:id="btn_agregarCita" layoutX="351.0" layoutY="405.0" mnemonicParsing="false" onAction="#agregarCita" text="Agregar" />
+      <Button fx:id="btn_cambiarEstado" layoutX="438.0" layoutY="405.0" mnemonicParsing="false" onAction="#cambiarEstado" text="Cambiar Estado" />
+      <TextField fx:id="txt_mesCita" layoutX="415.0" layoutY="356.0" prefHeight="26.0" prefWidth="42.0" promptText="Mes" />
+      <TextField fx:id="txt_yearCita" layoutX="467.0" layoutY="356.0" prefHeight="26.0" prefWidth="42.0" promptText="Año" />
+      <TextArea fx:id="txa_historial" layoutX="268.0" layoutY="561.0" prefHeight="99.0" prefWidth="169.0" />
+      <Label layoutX="327.0" layoutY="285.0" text="distintivo de la cita" />
+      <Label layoutX="327.0" layoutY="338.0" text="Fecha: DD            MM          AA" />
+      <Button fx:id="btn_actualizarHistorial" layoutX="268.0" layoutY="672.0" mnemonicParsing="false" onAction="#actualizarHistorial" text="Agregar" />
+      <TextArea fx:id="txa_tratamiento" layoutX="750.0" layoutY="561.0" prefHeight="99.0" prefWidth="169.0" />
+      <Button fx:id="btn_actualizarTratamiento" layoutX="750.0" layoutY="672.0" mnemonicParsing="false" onAction="#actualizarTratamiento" text="Agregar" />
+      <Button fx:id="btn_actualizarDatos" layoutX="343.0" layoutY="204.0" mnemonicParsing="false" onAction="#actualizarDatos" text="Actualizar" />
+      <Button layoutX="362.0" layoutY="672.0" mnemonicParsing="false" text="Eliminar" />
+      <Button layoutX="846.0" layoutY="672.0" mnemonicParsing="false" text="Elimiar" />
    </children>
 </AnchorPane>

@@ -1,6 +1,8 @@
 package co.edu.uniquindio.proyecto_ejemplo_javafx.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Clase que representa un Hospital en un sistema de gestión médica.
@@ -69,16 +71,35 @@ public class Hospital {
         }
 
         //administrador principal, necesario para el manejo inicial del hospital
+
+        
         Administrador admin = new Administrador("Juan", "Arias", "1", "1");
         administradores.add(admin);
 
-        //medico basico para comprobar funcionamiento
-        Medico medico1 = new Medico("medico1", "Basico", "id1", "123", "12", "13");
-        medicos.add(medico1);
 
-        Medico medico2 = new Medico("medico2", "Basico", "id2", "123", "13", "14");
-        medicos.add(medico2);
+        //personas basicas para comprobar funcionamiento
+        Medico medico1 = new Medico("medico1", "Basico", "2", "123", "12", "13");
+        Medico medico2 = new Medico("medico2", "Basico", "3", "123", "13", "14");
+        Paciente paciente1 = new Paciente("Paciente1", "Basico", "4", "123");
+        Paciente paciente2 = new Paciente("Paciente2", "Basico", "5", "123");
+
+        paciente1.agregarHistorialClinico("historia1 con mucho texto -------------------------------------------");
+        paciente1.agregarHistorialClinico("otro");
+        paciente1.agregarTratamiento("Tratamiento1 -------------------------------------------");
+        paciente2.agregarHistorialClinico("historia2 con mucho texto -------------------------------------------");
+        paciente2.agregarTratamiento("Tratamiento2 -------------------------------------------");
+
+        crearMedico(medico1);
+        crearMedico(medico2);
+        crearPaciente("1", paciente1);
+        crearPaciente("1", paciente2);
+
+        Cita cita = new Cita(LocalDate.of(2020, 1, 1), "C1", paciente1.getId());
+        citas.add(cita);
+        ArrayList<Persona> ocp = new ArrayList<>(Arrays.asList(medico1, medico2, paciente1));
+        ocuparSala("1", ocp, cita.getId());
     }
+
 
     // ==================== MÉTODOS BÁSICOS ====================
 
@@ -209,7 +230,7 @@ public class Hospital {
      * @return true si se modificó correctamente, false si no existía
      */
     public boolean modificarMedico(Medico medico) {
-        if(buscarMedico(medico.getNombre()) != null) {
+        if(buscarMedico(medico.getId()) != null) {
             System.out.println("medico modificado");
             medicos.remove(buscarMedico(medico.getId()));
             return medicos.add(medico);
@@ -243,7 +264,7 @@ public class Hospital {
      */
     public boolean crearPaciente(String idAdmin, Paciente paciente) {
         if(buscarAdministrador(idAdmin) != null) {
-            if(buscarAdministrador(idAdmin) != null && buscarPaciente(idAdmin, paciente.getId()) == null) {
+            if(buscarAdministrador(idAdmin) != null && buscarPaciente(paciente.getId()) == null) {
                 return pacientes.add(paciente);
             }
         }
@@ -252,18 +273,16 @@ public class Hospital {
 
     /**
      * Busca un paciente por su ID.
-     * @param idAdmin ID del administrador que realiza la consulta
      * @param id Identificador del paciente
      * @return Paciente encontrado o null si no existe
      */
-    public Paciente buscarPaciente(String idAdmin, String id) {
-        if(buscarAdministrador(idAdmin) != null) {
-            for(Paciente paciente : pacientes) {
-                if(paciente.getId().equals(id)) {
-                    return paciente;
-                }
+    public Paciente buscarPaciente(String id) {
+        for(Paciente paciente : pacientes) {
+            if(paciente.getId().equals(id)) {
+                return paciente;
             }
         }
+
         return null;
     }
 
@@ -275,11 +294,9 @@ public class Hospital {
      * @throws IllegalArgumentException Si el paciente es nulo
      */
     public boolean modificarPaciente(String idAdmin, Paciente paciente) {
-        if(buscarPaciente(idAdmin, paciente.getId()) != null) {
-            if(buscarAdministrador(idAdmin) != null) {
-                pacientes.remove(buscarPaciente(idAdmin, paciente.getId()));
-                return pacientes.add(paciente);
-            }
+        if(buscarPaciente(paciente.getId()) != null) {
+            pacientes.remove(buscarPaciente(paciente.getId()));
+            return pacientes.add(paciente);
         }
         return false;
     }
@@ -314,8 +331,10 @@ public class Hospital {
      * @return Sala encontrada o null si no existe
      */
     public Sala buscarSala(String idSala) {
-        for(Sala sala : salas) {
-            if(sala != null && sala.getIdsala().equals(idSala)) {
+        if (idSala == null) return null;
+
+        for (Sala sala : salas) {
+            if (sala != null && idSala.equals(sala.getIdsala())) {
                 return sala;
             }
         }
@@ -324,12 +343,12 @@ public class Hospital {
 
     /**
      * Ocupa una sala con los ocupantes y cita especificados.
-     * @param idSala Identificador de la sala a ocupar
+     *
+     * @param idSala    Identificador de la sala a ocupar
      * @param ocupantes Lista de personas que ocuparán la sala
-     * @param idcita Cita médica asociada
-     * @return true si se ocupó correctamente, false si la sala no existe o no está disponible
+     * @param idcita    Cita médica asociada
      */
-    public boolean ocuparSala(String idSala, ArrayList<Persona> ocupantes, String idcita){
+    public void ocuparSala(String idSala, ArrayList<Persona> ocupantes, String idcita){
         Sala sala = buscarSala(idSala);
         if(sala != null){
             if (!ocupantes.isEmpty()){
@@ -340,9 +359,7 @@ public class Hospital {
             if (!idcita.isBlank()) {
                 sala.setCita(buscarCita(idcita));
             }
-            return true;
         }
-        return false;
     }
 
     public void vaciarSala(String idSala){
@@ -364,16 +381,25 @@ public class Hospital {
         return new ArrayList<>(citas);
     }
 
+    public ArrayList<Cita> getCitasPaciente(String idPaciente) {
+        ArrayList<Cita> citas = new ArrayList<>();
+        for (Cita c : getCitas()) {
+            if (c.getPaciente().equals(idPaciente)) {
+                citas.add(c);
+            }
+        }
+        return citas;
+    }
+
+
     /**
      * Agrega una nueva cita al sistema.
      * @param cita Cita a agregar (no nula)
      * @return true si se agregó correctamente, false si ya existía
      */
     public boolean agregarCita(Cita cita) {
-        if(buscarCita(cita.getId()) != null) {
-            if(buscarCita(cita.getId()) == null) {
-                return citas.add(cita);
-            }
+        if(buscarCita(cita.getId()) == null) {
+            return citas.add(cita);
         }
         return false;
     }

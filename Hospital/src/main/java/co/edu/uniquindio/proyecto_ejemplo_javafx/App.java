@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto_ejemplo_javafx;
 
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Hospital;
+import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Sala;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.viewControler.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -27,15 +28,15 @@ public class App extends Application {
         openViewMenuInicio();
     }
 
-    public void openView(String fxmlPath, String usuario) {
+    public void openView(String fxmlPath, String usuario, String id) {
         try{
+            System.out.println("creando Loader");
             FXMLLoader loader = new FXMLLoader();
-            URL resourceUrl = getClass().getResource(fxmlPath);
-            if (resourceUrl == null) {
-                throw new RuntimeException("Archivo FXML no encontrado en: " + fxmlPath);
-            }
-            loader.setLocation(resourceUrl);
+            System.out.println("configurando Loader con: " + fxmlPath);
+            loader.setLocation(getClass().getResource(fxmlPath));
+            System.out.println("parent root \n        " + loader.getLocation());
             Parent root = loader.load();
+            System.out.println("llamado el setApp\n        " + fxmlPath);
             switch (fxmlPath){
                 case "MenuInicio.fxml":
                     MenuInicioViewController controller1 = loader.getController();
@@ -55,7 +56,8 @@ public class App extends Application {
                     break;
                 case "MenuPaciente.fxml":
                     MenuPacienteViewControler controller5 = loader.getController();
-                    //controller5.setApp();
+                    controller5.setApp(this, hospital.buscarPaciente(usuario));
+                    break;
                 case "Medicos.fxml":
                     MedicosViewControler controller6 = loader.getController();
                     controller6.setApp(this, hospital.buscarAdministrador(usuario));
@@ -68,11 +70,13 @@ public class App extends Application {
                     SalasViewControler controller8 = loader.getController();
                     controller8.setApp(this, hospital.buscarAdministrador(usuario));
                     break;
-
-
-
-
-
+                case "VerOcupantes.fxml":
+                    VerOcupantesViewControler controler9 = loader.getController();
+                    controler9.setApp(this, hospital.buscarAdministrador(usuario), hospital.buscarSala(id));
+                    break;
+                case "RevizarPaciente.fxml":
+                    RevizarPacienteViewControler controller10 = loader.getController();
+                    controller10.setApp(this, hospital.buscarMedico(usuario), hospital.buscarPaciente(id));
             }
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
@@ -82,85 +86,65 @@ public class App extends Application {
             e.printStackTrace();
             showErrorAlert("Error fatal", "No se pudo cargar la interfaz:" + e.getMessage());
             System.out.println(e.getMessage());
-            openViewError("No se pudo cargar la interfaz:" + e.getMessage());
+            //openViewError("No se pudo cargar la interfaz:" + e.getMessage());
         }
     }
 
     public void openViewMenuMedico(String usuario) {
-        openView("MenuMedicos.fxml", usuario);
+        openView("MenuMedico.fxml", usuario, null);
     }
 
     public void openViewAdministradores(String usuario){
-        openView("Administradores.fxml", usuario);
+        openView("Administradores.fxml", usuario, null);
     }
 
     public void openViewError(String msg){
-        openView("Error.fxml", msg);
+        openView("Error.fxml", msg, null);
     }
 
     public void openViewIniciarSesion() {
-        openView("IniciarSesion.fxml", null);
+        openView("IniciarSesion.fxml", null, null);
     }
 
     public void openViewMedicos(String usuario){
-        openView("Medicos.fxml", usuario);
+        openView("Medicos.fxml", usuario, null);
     }
 
     public void openViewMenuAdministrador(String usuario) {
-        openView("MenuAdministrador.fxml", usuario);
+        openView("MenuAdministrador.fxml", usuario, null);
     }
 
     public void openViewMenuInicio() {
-        openView("MenuInicio.fxml", "");
+        openView("MenuInicio.fxml", "", null);
     }
 
     public void openViewMenuPaciente(String usuario){
-        openView("MenuPaciente.fxml", "");
+        openView("MenuPaciente.fxml", usuario, null);
     }
 
     public void openViewPacientes(String usuario){
-        openView("Pacientes.fxml", usuario);
+        openView("Pacientes.fxml", usuario, null);
     }
 
     public void openViewRecordatorio(String usuario) {
-        openView("Recordatorio.fxml", usuario);
+        openView("Recordatorio.fxml", usuario, null);
     }
 
     public void openViewReporte(String usuario){
-        openView("Reporte.fxml", usuario);
+        openView("Reporte.fxml", usuario, null);
     }
 
-    public void openViewRevizarPaciente(String usuario){
-        openView("RevizarPaciente.fxml", usuario);
+    public void openViewRevizarPaciente(String usuario, String id){
+        openView("RevizarPaciente.fxml", usuario, id);
     }
 
     public void openViewSalas(String usuario) {
-        openView("Salas.fxml", usuario);
+        openView("Salas.fxml", usuario, null);
 
     }
 
     public void openViewVerOcupanetes(String usuario, String idSala){
-        try{
-            String fxmlPath = "VerOcupantes.fxml";
-            FXMLLoader loader = new FXMLLoader();
-            URL resourceUrl = getClass().getResource(fxmlPath);
-            if (resourceUrl == null) {
-                throw new RuntimeException("Archivo FXML no encontrado en: " + fxmlPath);
-            }
-            loader.setLocation(resourceUrl);
-            Parent root = loader.load();
-            VerOcupantesViewControler controler = loader.getController();
-            controler.setApp(this, hospital.buscarAdministrador(usuario), hospital.buscarSala(idSala));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (Exception e) {
-            System.err.println("Error al cargar FXML:");
-            e.printStackTrace();
-            showErrorAlert("Error fatal", "No se pudo cargar la interfaz:" + e.getMessage());
-            System.out.println(e.getMessage());
-            openViewError("No se pudo cargar la interfaz:" + e.getMessage());
-        }
+        openView("VerOcupantes.fxml", usuario, idSala);
     }
 
 
