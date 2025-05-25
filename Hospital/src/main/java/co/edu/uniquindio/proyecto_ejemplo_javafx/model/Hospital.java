@@ -331,10 +331,8 @@ public class Hospital {
      * @return Sala encontrada o null si no existe
      */
     public Sala buscarSala(String idSala) {
-        if (idSala == null) return null;
-
         for (Sala sala : salas) {
-            if (sala != null && idSala.equals(sala.getIdsala())) {
+            if (sala.getIdsala().equals(idSala)) {
                 return sala;
             }
         }
@@ -351,12 +349,13 @@ public class Hospital {
     public void ocuparSala(String idSala, ArrayList<Persona> ocupantes, String idcita){
         Sala sala = buscarSala(idSala);
         if(sala != null){
-            if (!ocupantes.isEmpty()){
+            if (ocupantes != null){
                 for(Persona persona : ocupantes) {
                     sala.agregarOcupante(persona);
                 }
             }
             if (!idcita.isBlank()) {
+                System.out.println(idcita);
                 sala.setCita(buscarCita(idcita));
             }
         }
@@ -364,9 +363,9 @@ public class Hospital {
 
     public void vaciarSala(String idSala){
         Sala sala = buscarSala(idSala);
+        System.out.println("entrando metodo para " + idSala);
         if(sala != null){
-            sala.setCita(null);
-            sala.setDisponibilidad(true);
+            sala.setDisponibilidad(false);
             sala.vaciarSala();
         }
     }

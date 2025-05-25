@@ -24,7 +24,6 @@ public class MedicosViewControler {
     Administrador administrador;
     MedicosControler controler;
     Medico medicotbl;
-    Hospital hospital = App.hospital;
 
     ObservableList<Medico> medicos = FXCollections.observableArrayList();
 
@@ -144,6 +143,7 @@ public class MedicosViewControler {
         txt_nombre.clear();
         txt_apellido.clear();
         txt_telefono.clear();
+
     }
 
     @FXML

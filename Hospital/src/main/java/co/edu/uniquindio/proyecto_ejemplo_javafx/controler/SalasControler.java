@@ -22,8 +22,11 @@ public class SalasControler {
         hospital.ocuparSala(sala, null, cita);
     }
 
-    public void eliminarCita(String cita, String sala){
-
+    public void eliminarCita(String idsala){
+        Sala sala = hospital.buscarSala(idsala);
+        if(sala != null){
+            sala.eliminarCita();
+        }
     }
 
     public void vaciarSala(String idsala){

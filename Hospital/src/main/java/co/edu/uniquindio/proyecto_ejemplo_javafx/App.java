@@ -77,6 +77,11 @@ public class App extends Application {
                 case "RevizarPaciente.fxml":
                     RevizarPacienteViewControler controller10 = loader.getController();
                     controller10.setApp(this, hospital.buscarMedico(usuario), hospital.buscarPaciente(id));
+                    break;
+                case "Pacientes.fxml":
+                    PacientesViewControler controller11 = loader.getController();
+                    controller11.setApp(this, hospital.buscarAdministrador(usuario));
+                    break;
             }
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
@@ -148,6 +153,7 @@ public class App extends Application {
     }
 
 
+
     private void showErrorAlert(String title, String message) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
@@ -160,6 +166,5 @@ public class App extends Application {
         Application.launch(args);
     }
 
-    public void inicializarData(){
-    }
+    public void inicializarData(){}
 }

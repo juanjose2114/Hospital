@@ -72,8 +72,8 @@ public class SalasViewControler {
     }
 
     @FXML
-    public void agregarCtia(){
-        if (txt_estado.getText().equals("Ocupado")) {
+    public void agregarCita(){
+        if (txt_estado.getText().equals("Disponible")) {
             String idcita = txt_idcita.getText();
             String idsala = txt_idsala.getText();
             if (!idcita.isBlank()) {
@@ -85,12 +85,14 @@ public class SalasViewControler {
 
     @FXML
     public void eliminarctia(){
-        controler.eliminarCita(txt_idcita.getText(), txt_idsala.getText());
+        controler.eliminarCita(txt_idsala.getText());
+        initVoid();
     }
 
     @FXML
     public void vaciarsala(){
-        controler.vaciarSala(txt_idcita.getText());
+        System.out.println("entrando metodo");
+        controler.vaciarSala(txt_idsala.getText());
         initVoid();
     }
 
@@ -118,7 +120,10 @@ public class SalasViewControler {
         if (salatbl != null) {
             txt_idsala.setText(salatbl.getIdsala());
             txt_estado.setText(salatbl.getDisponibilidadS());
-            txt_idcita.setText(salatbl.getCita().getId());
+            if (salatbl.getCita() != null) {
+                txt_idcita.setText(salatbl.getCita().getId());
+            } else
+                txt_idcita.clear();
         }
     }
 

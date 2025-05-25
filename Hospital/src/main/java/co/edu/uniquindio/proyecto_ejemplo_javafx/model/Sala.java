@@ -73,6 +73,10 @@ public class Sala {
         this.disponibilidad = (cita == null);
     }
 
+    public void eliminarCita() {
+        this.cita = null;
+    }
+
     /**
      * Verifica el estado de disponibilidad de la sala.
      * @return true si está disponible, false si está ocupada.
@@ -95,8 +99,8 @@ public class Sala {
      */
     public void setDisponibilidad(boolean disponibilidad) {
         this.disponibilidad = disponibilidad;
-        if(disponibilidad) {
-            this.cita = null;
+        if(!disponibilidad) {
+            eliminarCita();
         }
     }
 
