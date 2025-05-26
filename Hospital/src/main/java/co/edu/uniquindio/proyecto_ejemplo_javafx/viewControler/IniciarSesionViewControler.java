@@ -64,7 +64,7 @@ public class IniciarSesionViewControler {
         iniciarSesionControler = new IniciarSesionControler();
     }
 
-    public String cargoUsuario(String id){
+    private String cargoUsuario(String id){
         Persona persona = iniciarSesionControler.buscarPersona(id);
         if(persona instanceof Paciente){
             return "Paciente";

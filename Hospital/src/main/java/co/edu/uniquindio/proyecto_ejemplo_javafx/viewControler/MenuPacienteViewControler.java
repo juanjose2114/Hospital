@@ -23,8 +23,6 @@ public class MenuPacienteViewControler {
     Hospital hospital = App.hospital;
 
     Cita citatbl;
-    String historiatbl;
-    String tratamientotbl;
 
     ObservableList<Cita> citas = FXCollections.observableArrayList();
     ObservableList<String> tratamientos = FXCollections.observableArrayList();
@@ -146,9 +144,7 @@ public class MenuPacienteViewControler {
 
 
 
-
-
-    public void mostrarPaciente(){
+    private void mostrarPaciente(){
         txt_nombre.setText(paciente.getNombre());
         txt_apellido.setText(paciente.getApellido());
         txt_id.setText(paciente.getId());
@@ -156,7 +152,7 @@ public class MenuPacienteViewControler {
         limpiarSeleccion();
     }
 
-    public void initDataBinding(){
+    private void initDataBinding(){
         cln_idcita.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         cln_fecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaS()));
         cln_estado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEstadoS()));
@@ -164,7 +160,7 @@ public class MenuPacienteViewControler {
         cln_tratamiento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
     }
 
-    public void obtenerCitas(){
+    private void obtenerCitas(){
         citas.clear();
         historias.clear();
         tratamientos.clear();
@@ -174,14 +170,14 @@ public class MenuPacienteViewControler {
         tratamientos.addAll(controler.getTratamiento(paciente.getId()));
     }
 
-    public void listSelecion(){
+    private void listSelecion(){
         tbl_cita.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             citatbl = newValue;
             mostrarCitas(citatbl);
         });
     }
 
-    public void mostrarCitas(Cita citatbl){
+    private void mostrarCitas(Cita citatbl){
         if(citatbl != null){
             txt_diaCita.setText(valueOf(citatbl.getFecha().getDayOfYear()));
             txt_mesCita.setText(valueOf(citatbl.getFecha().getMonthValue()));
@@ -190,7 +186,7 @@ public class MenuPacienteViewControler {
         }
     }
 
-    public void initVoid(){
+    private void initVoid(){
         tbl_cita.setItems(null);
         tbl_historial.setItems(null);
         tbl_tratamiento.setItems(null);

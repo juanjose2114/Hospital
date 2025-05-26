@@ -3,7 +3,6 @@ package co.edu.uniquindio.proyecto_ejemplo_javafx.viewControler;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.App;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.controler.PacientesControler;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Administrador;
-import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Hospital;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Paciente;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -14,13 +13,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-import javax.swing.*;
 
 public class PacientesViewControler {
 
     App app;
     Administrador administrador;
-    Hospital hospital = App.hospital;
     PacientesControler controler;
 
     Paciente pacientetbl;
@@ -119,6 +116,8 @@ public class PacientesViewControler {
         tbl_pacientes.refresh();
     }
 
+
+
     private void limpiarCampos() {
         txt_nombre.clear();
         txt_apellido.clear();
@@ -126,7 +125,6 @@ public class PacientesViewControler {
         txt_telefono.clear();
         initVoid();
     }
-
 
     private void initDataBinding(){
         cln_nombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
@@ -156,7 +154,6 @@ public class PacientesViewControler {
         }
     }
 
-    @FXML
     private void initVoid(){
         System.out.println("initVoid");
         tbl_pacientes.setItems(null);

@@ -20,12 +20,12 @@ public class VerOcupantesViewControler {
     App app;
     Administrador administrador;
     Sala sala;
-    Hospital hospital = App.hospital;
     VerOcupantesControler controler;
     Persona personatbl;
 
     ObservableList<Persona> ocupantes = FXCollections.observableArrayList();
 
+//----------------------------------------------------------------------------------------------------------------------
 
     @FXML
     public Button btn_volver;
@@ -66,6 +66,7 @@ public class VerOcupantesViewControler {
     @FXML
     public Button btn_sacarPaciente;
 
+//----------------------------------------------------------------------------------------------------------------------
 
     @FXML
     public void volver(){
@@ -89,6 +90,8 @@ public class VerOcupantesViewControler {
         controler.sacarPersona(txt_id.getText(), sala.getIdsala());
         initVoid();
     }
+
+
 
     private void initDataBinding(){
         cln_nombreOcupante.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
@@ -118,9 +121,7 @@ public class VerOcupantesViewControler {
         }
     }
 
-
-    @FXML
-    public void initVoid(){
+    private void initVoid(){
         tbl_ocupantes.setItems(null);
         initDataBinding();
         obtenerPersona();

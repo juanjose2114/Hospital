@@ -26,6 +26,7 @@ public class SalasViewControler {
 
     ObservableList<Sala> salas = FXCollections.observableArrayList();
 
+//----------------------------------------------------------------------------------------------------------------------
     @FXML
     private Button btn_volver;
 
@@ -65,6 +66,7 @@ public class SalasViewControler {
     @FXML
     public Button btn_ocupantes;
 
+//----------------------------------------------------------------------------------------------------------------------
 
     @FXML
     public void volver(){
@@ -97,7 +99,7 @@ public class SalasViewControler {
     }
 
     @FXML
-    private void verOcupantes(){
+    public void verOcupantes(){
         if (hospital.buscarSala(txt_idsala.getText()) != null){
             app.openViewVerOcupanetes(administrador.getId(), txt_idsala.getText());
         }
@@ -110,13 +112,15 @@ public class SalasViewControler {
         tbl_salas.refresh();
     }
 
+
+
     private void limpiarCampos(){
         txt_idsala.clear();
         txt_idcita.clear();
         txt_estado.clear();
     }
 
-    public void mostrarSala(Sala salatbl){
+    private void mostrarSala(Sala salatbl){
         if (salatbl != null) {
             txt_idsala.setText(salatbl.getIdsala());
             txt_estado.setText(salatbl.getDisponibilidadS());
@@ -145,7 +149,6 @@ public class SalasViewControler {
         });
     }
 
-    @FXML
     private void initVoid(){
         tbl_salas.setItems(null);
         initDataBinding();

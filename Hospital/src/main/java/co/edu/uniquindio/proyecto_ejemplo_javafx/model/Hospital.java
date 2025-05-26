@@ -144,14 +144,13 @@ public class Hospital {
 
     /**
      * Crea y agrega un nuevo administrador al sistema.
+     *
      * @param administrador Administrador a agregar (no nulo)
-     * @return true si se agregó correctamente, false si ya existía
      */
-    public boolean crearAdministrador(String idAdmin, Administrador administrador) {
+    public void crearAdministrador(String idAdmin, Administrador administrador) {
         if(buscarAdministrador(administrador.getId()) == null) {
-            return administradores.add(administrador);
+            administradores.add(administrador);
         }
-        return false;
     }
 
     /**
@@ -170,22 +169,20 @@ public class Hospital {
 
     /**
      * Modifica los datos de un administrador existente.
+     *
      * @param administrador Administrador con datos actualizados
-     * @return true si se modificó correctamente, false si no existía
      */
-    public boolean modificarAdministrador(Administrador administrador) {
+    public void modificarAdministrador(Administrador administrador) {
         if(buscarAdministrador(administrador.getId()) != null) {
             administradores.remove(buscarAdministrador(administrador.getId()));
-            return administradores.add(administrador);
+            administradores.add(administrador);
         }
-        return false;
     }
 
-    public boolean eliminarAdministrador(String id) {
+    public void eliminarAdministrador(String id) {
         if (buscarAdministrador(id) != null) {
-            return administradores.remove(buscarAdministrador(id));
+            administradores.remove(buscarAdministrador(id));
         }
-        return false;
     }
 
     // ==================== GESTIÓN DE MEDICOS ====================
@@ -254,17 +251,16 @@ public class Hospital {
 
     /**
      * Crea y agrega un nuevo paciente al sistema.
-     * @param idAdmin ID del administrador que realiza la operación
+     *
+     * @param idAdmin  ID del administrador que realiza la operación
      * @param paciente Paciente a agregar (no nulo)
-     * @return true si se agregó correctamente, false si ya existía o el admin no es válido
      */
-    public boolean crearPaciente(String idAdmin, Paciente paciente) {
+    public void crearPaciente(String idAdmin, Paciente paciente) {
         if(buscarAdministrador(idAdmin) != null) {
             if(buscarAdministrador(idAdmin) != null && buscarPaciente(paciente.getId()) == null) {
-                return pacientes.add(paciente);
+                pacientes.add(paciente);
             }
         }
-        return false;
     }
 
     /**
@@ -299,15 +295,14 @@ public class Hospital {
 
     /**
      * Elimina un paciente del sistema.
-     * @param idAdmin ID del administrador que realiza la operación
+     *
+     * @param idAdmin    ID del administrador que realiza la operación
      * @param idPaciente Identificador del paciente a eliminar
-     * @return true si se eliminó correctamente, false si no existía o el admin no es válido
      */
-    public boolean eliminarPaciente(String idAdmin, String idPaciente) {
+    public void eliminarPaciente(String idAdmin, String idPaciente) {
         if(buscarAdministrador(idAdmin) != null) {
-            return pacientes.removeIf(p -> p.getId().equals(idPaciente));
+            pacientes.removeIf(p -> p.getId().equals(idPaciente));
         }
-        return false;
     }
 
     // ==================== GESTIÓN DE SALAS ====================
@@ -389,14 +384,13 @@ public class Hospital {
 
     /**
      * Agrega una nueva cita al sistema.
+     *
      * @param cita Cita a agregar (no nula)
-     * @return true si se agregó correctamente, false si ya existía
      */
-    public boolean agregarCita(Cita cita) {
+    public void agregarCita(Cita cita) {
         if(buscarCita(cita.getId()) == null) {
-            return citas.add(cita);
+            citas.add(cita);
         }
-        return false;
     }
 
     /**
@@ -414,48 +408,18 @@ public class Hospital {
     }
 
     /**
-     * Modifica los datos de una cita existente.
-     * @param cita Cita con datos actualizados
-     * @return true si se modificó correctamente, false si no existía
-     */
-    public boolean modificarCita(Cita cita) {
-        if(buscarCita(cita.getId()) != null) {
-            Cita existente = buscarCita(cita.getId());
-            if(existente != null) {
-                citas.remove(existente);
-                return citas.add(cita);
-            }
-        }
-        return false;
-    }
-
-    /**
      * Elimina una cita del sistema.
+     *
      * @param id Identificador de la cita a eliminar
-     * @return true si se eliminó correctamente, false si no existía
      */
-    public boolean eliminarCita(String id) {
+    public void eliminarCita(String id) {
         Cita cita = buscarCita(id);
         if(cita != null) {
-            return citas.remove(cita);
+            citas.remove(cita);
         }
-        return false;
     }
 
     // ==================== MÉTODOS AUXILIARES ====================
-
-    /**
-     * Verifica si el hospital tiene salas disponibles.
-     * @return true si hay al menos una sala disponible, false en caso contrario
-     */
-    public boolean haySalasDisponibles() {
-        for(Sala sala : salas) {
-            if(sala.getDisponibilidad()) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     @Override
     public String toString() {

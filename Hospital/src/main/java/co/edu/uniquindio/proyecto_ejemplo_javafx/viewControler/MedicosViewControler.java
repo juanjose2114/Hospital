@@ -4,7 +4,6 @@ import co.edu.uniquindio.proyecto_ejemplo_javafx.App;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.controler.MedicosControler;
 
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Administrador;
-import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Hospital;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Medico;
 
 import javafx.beans.property.SimpleStringProperty;

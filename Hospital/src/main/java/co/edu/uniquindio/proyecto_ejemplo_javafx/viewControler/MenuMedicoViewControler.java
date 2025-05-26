@@ -3,7 +3,6 @@ package co.edu.uniquindio.proyecto_ejemplo_javafx.viewControler;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.App;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.controler.MenuMedicoControler;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Medico;
-import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Paciente;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -13,41 +12,44 @@ public class MenuMedicoViewControler {
 
     MenuMedicoControler controler;
     Medico medico;
-    private App app;
+    App app;
+
+//----------------------------------------------------------------------------------------------------------------------
 
     @FXML
-    private Button btn_volver;
+    public Button btn_volver;
 
     @FXML
-    private TextField txt_nombre;
+    public TextField txt_nombre;
 
     @FXML
-    private TextField txt_apellido;
+    public TextField txt_apellido;
 
     @FXML
-    private TextField txt_id;
+    public TextField txt_id;
 
     @FXML
-    private TextField txt_telefono;
+    public TextField txt_telefono;
 
     @FXML
-    private Button btn_actualizar;
+    public Button btn_actualizar;
 
     @FXML
-    private TextField txt_horainicio;
+    public TextField txt_horainicio;
 
     @FXML
-    private TextField txt_horafin;
+    public TextField txt_horafin;
 
     @FXML
-    private Button btn_modificarhorario;
+    public Button btn_modificarhorario;
 
     @FXML
-    private TextField txt_idpacientebuscar;
+    public TextField txt_idpacientebuscar;
 
     @FXML
-    private Button btn_buscarHistorial;
+    public Button btn_buscarHistorial;
 
+//----------------------------------------------------------------------------------------------------------------------
 
     @FXML
     public void volver() {
@@ -92,7 +94,8 @@ public class MenuMedicoViewControler {
     }
 
 
-    public void initVoid(){
+
+    private void initVoid(){
         txt_nombre.setText(medico.getNombre());
         txt_apellido.setText(medico.getApellido());
         txt_id.setText(medico.getId());

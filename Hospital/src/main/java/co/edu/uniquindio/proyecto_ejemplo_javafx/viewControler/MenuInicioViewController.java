@@ -2,29 +2,24 @@ package co.edu.uniquindio.proyecto_ejemplo_javafx.viewControler;
 
 import co.edu.uniquindio.proyecto_ejemplo_javafx.App;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.controler.MenuInicioController;
-import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Persona;
 import javafx.fxml.FXML;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
 public class MenuInicioViewController {
 
-    public static Persona usuario;
     MenuInicioController menuInicioController;
-
-    private App app;
+    App app;
 
     @FXML
-    private Button btn_iniciarSecion;
+    public Button btn_iniciarSecion;
 
     @FXML
     public void initialize(){
-        this.app = app;
         menuInicioController = new MenuInicioController();
     }
 
     @FXML
-    public void openIniciarSesion(ActionEvent event){
+    public void openIniciarSesion(){
         if(app != null) {
             app.openViewIniciarSesion();
         } else {

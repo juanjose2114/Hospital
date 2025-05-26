@@ -7,8 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-import java.awt.*;
-
 public class RecordatorioViewControler {
 
     App app;
@@ -19,8 +17,10 @@ public class RecordatorioViewControler {
 
     @FXML
     public Button btn_volver;
+
     @FXML
     public TextField txt_cantidadavisos;
+
 //------------------------------------------------------------------------
 
     @FXML
@@ -28,7 +28,7 @@ public class RecordatorioViewControler {
         app.openViewMenuAdministrador(administrador.getId());
     }
 
-    public void enviarRecordatorio(){
+    private void enviarRecordatorio(){
         txt_cantidadavisos.setText(controler.enviarRecordatorio());
     }
 

@@ -3,7 +3,6 @@ package co.edu.uniquindio.proyecto_ejemplo_javafx.viewControler;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.App;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.controler.RevizarPacienteControler;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Cita;
-import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Hospital;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Medico;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Paciente;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,7 +19,6 @@ public class RevizarPacienteViewControler {
     Medico medico;
     Paciente paciente;
     RevizarPacienteControler controler;
-    Hospital hospital = App.hospital;
 
     Cita citatbl;
     String historia;
@@ -91,9 +89,6 @@ public class RevizarPacienteViewControler {
     public TextArea txa_historial;
 
     @FXML
-    public Button btn_actualizarHistorial;
-
-    @FXML
     public TableView<String> tbl_tratamiento;
 
     @FXML
@@ -101,9 +96,6 @@ public class RevizarPacienteViewControler {
 
     @FXML
     public TextArea txa_tratamiento;
-
-    @FXML
-    public Button btn_actualizarTratamiento;
 
 //------------------------------------------------------------------
 
@@ -177,8 +169,6 @@ public class RevizarPacienteViewControler {
         initVoid();
     }
 
-
-
     @FXML
     public void limpiarSeleccion(){
         txt_diaCita.clear();
@@ -187,7 +177,9 @@ public class RevizarPacienteViewControler {
         txt_idCita.clear();
     }
 
-    public void mostrarPaciente(){
+
+
+    private void mostrarPaciente(){
         txt_nombre.setText(paciente.getNombre());
         txt_apellido.setText(paciente.getApellido());
         txt_id.setText(paciente.getId());
@@ -195,7 +187,7 @@ public class RevizarPacienteViewControler {
         limpiarSeleccion();
     }
 
-    public void initDataBinding(){
+    private void initDataBinding(){
         cln_idcita.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         cln_fecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaS()));
         cln_estado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEstadoS()));
@@ -203,7 +195,7 @@ public class RevizarPacienteViewControler {
         cln_tratamiento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
     }
 
-    public void obtenerCitas(){
+    private void obtenerCitas(){
         citas.clear();
         historias.clear();
         tratamientos.clear();
@@ -213,14 +205,14 @@ public class RevizarPacienteViewControler {
         tratamientos.addAll(controler.getTratamiento(paciente.getId()));
     }
 
-    public void listSelecionC(){
+    private void listSelecionC(){
         tbl_cita.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             citatbl = newValue;
             mostrarCitas(citatbl);
         });
     }
 
-    public void mostrarCitas(Cita c){
+    private void mostrarCitas(Cita c){
         if(c != null){
             txt_diaCita.setText(valueOf(c.getFecha().getDayOfYear()));
             txt_mesCita.setText(valueOf(c.getFecha().getMonthValue()));
@@ -229,29 +221,29 @@ public class RevizarPacienteViewControler {
         }
     }
 
-    public void listSelecionH(){
+    private void listSelecionH(){
         tbl_historial.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             historia = newValue;
             mostrarHistoria(historia);
         });
     }
 
-    public void mostrarHistoria(String h){
+    private void mostrarHistoria(String h){
         txa_historial.setText(h);
     }
 
-    public void listSelecionT(){
+    private void listSelecionT(){
         tbl_tratamiento.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             tratamiento = newValue;
             mostrarTratamiento(tratamiento);
         });
     }
 
-    public void mostrarTratamiento(String t){
+    private void mostrarTratamiento(String t){
         txa_tratamiento.setText(t);
     }
 
-    public void initVoid(){
+    private void initVoid(){
         System.out.println("initVoid");
         tbl_cita.setItems(null);
         tbl_historial.setItems(null);
@@ -275,7 +267,6 @@ public class RevizarPacienteViewControler {
         mostrarPaciente();
     }
 
-    @FXML
     public void initialize() {
         controler = new RevizarPacienteControler();
     }

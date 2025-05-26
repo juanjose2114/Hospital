@@ -12,6 +12,8 @@ public class MenuAdministradorViewControler {
     Administrador administrador;
     private App app;
 
+//--------------------------------------------------------------
+
     @FXML
     public Button btn_salas;
 
@@ -33,6 +35,7 @@ public class MenuAdministradorViewControler {
     @FXML
     public Button btn_volver;
 
+//--------------------------------------------------------------
     @FXML
     public void volver(){
         if (app != null){
@@ -103,6 +106,8 @@ public class MenuAdministradorViewControler {
             throw new IllegalStateException("La referencia a App no ha sido establecida");
         }
     }
+
+
 
     @FXML
     public void initialize() {

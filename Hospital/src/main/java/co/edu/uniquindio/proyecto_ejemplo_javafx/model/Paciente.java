@@ -1,9 +1,5 @@
 package co.edu.uniquindio.proyecto_ejemplo_javafx.model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -40,31 +36,18 @@ public class Paciente extends Persona {
         return historialClinico;
     }
 
-    public ObservableList<String> getHistorialClinicoObservable() {
-        return FXCollections.observableList(historialClinico);
-    }
-
-
-    /**
-     * Reemplaza todo el historial clínico con una nueva lista.
-     * @param historialClinico Nueva lista de historial clínico.
-     */
-    public void setHistorialClinico(LinkedList<String> historialClinico) {
-        this.historialClinico = historialClinico;
-    }
-
     /**
      * Agrega un nuevo registro al historial clínico (si no existe).
+     *
      * @param clinico Registro clínico a agregar.
-     * @return true si se agregó, false si ya existía.
      */
-    public Boolean agregarHistorialClinico(String clinico) {
+    public void agregarHistorialClinico(String clinico) {
         for (String s : historialClinico) {
             if (s.equals(clinico)) {
-                return false;  // Evita duplicados
+                return;  // Evita duplicados
             }
         }
-        return historialClinico.add(clinico);  // Agrega si no existe
+        historialClinico.add(clinico);
     }
 
     /**
@@ -82,30 +65,14 @@ public class Paciente extends Persona {
     }
 
     /**
-     * Modifica un registro del historial clínico.
-     * @param clinicoViejo Registro a modificar.
-     * @param clinico      Nuevo registro.
-     * @return true si se modificó, false si no existía el registro viejo.
-     */
-    public boolean modificarHistorialClinico(String clinicoViejo, String clinico) {
-        if (revisarHistorialClinico(clinicoViejo) != null) {
-            historialClinico.remove(clinicoViejo);
-            historialClinico.add(clinico);
-            return true;  // Modificación exitosa
-        }
-        return false;  // Registro viejo no encontrado
-    }
-
-    /**
      * Elimina un registro del historial clínico.
+     *
      * @param clinico Registro a eliminar.
-     * @return true si se eliminó, false si no existía.
      */
-    public boolean eliminarHistorialClinico(String clinico) {
+    public void eliminarHistorialClinico(String clinico) {
         if (revisarHistorialClinico(clinico) != null) {
-            return historialClinico.remove(clinico);  // Elimina y retorna true
+            historialClinico.remove(clinico);
         }
-        return false;  // No se encontró el registro
     }
 
     // ==================== MÉTODOS PARA TRATAMIENTOS ====================
@@ -118,30 +85,17 @@ public class Paciente extends Persona {
         return tratamientos;
     }
 
-    public ObservableList<String> getTratamientosObservable() {
-        return FXCollections.observableList(tratamientos);
-    }
-
-    /**
-     * Reemplaza todos los tratamientos con una nueva lista.
-     * @param tratamientos Nueva lista de tratamientos.
-     */
-    public void setTratamientos(LinkedList<String> tratamientos) {
-        this.tratamientos = tratamientos;
-    }
-
     /**
      * Agrega un nuevo tratamiento (si no existe).
      * @param tratamiento Tratamiento a agregar.
-     * @return true si se agregó, false si ya existía.
      */
-    public Boolean agregarTratamiento(String tratamiento) {
+    public void agregarTratamiento(String tratamiento) {
         for (String s : tratamientos) {
             if (s.equals(tratamiento)) {
-                return false;  // Evita duplicados
+                return;  // Evita duplicados
             }
         }
-        return tratamientos.add(tratamiento);  // Agrega si no existe
+        tratamientos.add(tratamiento);
     }
 
     /**
@@ -152,37 +106,20 @@ public class Paciente extends Persona {
     public String revisarTratamiento(String tratamiento) {
         for (String s : tratamientos) {
             if (s.equals(tratamiento)) {
-                return s;  // Retorna el tratamiento encontrado
+                return s;
             }
         }
-        return null;  // No encontrado
-    }
-
-    /**
-     * Modifica un tratamiento existente.
-     * @param tratamientoViejo Tratamiento a modificar.
-     * @param tratamiento      Nuevo tratamiento.
-     * @return true si se modificó, false si no existía el tratamiento viejo.
-     */
-    public boolean modificarTratamiento(String tratamientoViejo, String tratamiento) {
-        if (revisarTratamiento(tratamientoViejo) != null) {
-            tratamientos.remove(tratamientoViejo);
-            tratamientos.add(tratamiento);
-            return true;  // Modificación exitosa
-        }
-        return false;  // Tratamiento viejo no encontrado
+        return null;
     }
 
     /**
      * Elimina un tratamiento.
      * @param tratamiento Tratamiento a eliminar.
-     * @return true si se eliminó, false si no existía.
      */
-    public boolean eliminartratamiento(String tratamiento) {
+    public void eliminartratamiento(String tratamiento) {
         if (revisarTratamiento(tratamiento) != null) {
-            return tratamientos.remove(tratamiento);  // Elimina y retorna true
+            tratamientos.remove(tratamiento);
         }
-        return false;  // No se encontró el tratamiento
     }
 
     // ==================== MÉTODOS HEREDADOS (GETTERS) ====================

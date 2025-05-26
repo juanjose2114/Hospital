@@ -1,10 +1,8 @@
 package co.edu.uniquindio.proyecto_ejemplo_javafx;
 
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Hospital;
-import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Sala;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.viewControler.*;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,8 +10,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.net.URL;
 
 public class App extends Application {
 
@@ -21,7 +17,7 @@ public class App extends Application {
     public static Hospital hospital = new Hospital("san juan pepe fernando muñoz", 15);
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Menu de inicio Hospital");
         inicializarData();
@@ -62,10 +58,6 @@ public class App extends Application {
                     MedicosViewControler controller6 = loader.getController();
                     controller6.setApp(this, hospital.buscarAdministrador(usuario));
                     break;
-                case "Error.fxml":
-                    ErrorViewControler controller7 = loader.getController();
-                    controller7.setApp(this, usuario);
-                    break;
                 case "Salas.fxml":
                     SalasViewControler controller8 = loader.getController();
                     controller8.setApp(this, hospital.buscarAdministrador(usuario));
@@ -101,7 +93,7 @@ public class App extends Application {
         } catch (Exception e) {
             System.err.println("Error al cargar FXML:");
             e.printStackTrace();
-            showErrorAlert("Error fatal", "No se pudo cargar la interfaz:" + e.getMessage());
+            showErrorAlert("No se pudo cargar la interfaz:" + e.getMessage());
             System.out.println(e.getMessage());
             //openViewError("No se pudo cargar la interfaz:" + e.getMessage());
         }
@@ -113,10 +105,6 @@ public class App extends Application {
 
     public void openViewAdministradores(String usuario){
         openView("Administradores.fxml", usuario, null);
-    }
-
-    public void openViewError(String msg){
-        openView("Error.fxml", msg, null);
     }
 
     public void openViewIniciarSesion() {
@@ -166,9 +154,9 @@ public class App extends Application {
 
 
 
-    private void showErrorAlert(String title, String message) {
+    private void showErrorAlert(String message) {
         Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle(title);
+        alert.setTitle("Error fatal");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();

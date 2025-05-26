@@ -115,27 +115,19 @@ public class Sala {
     }
 
     /**
-     * Reemplaza completamente el conjunto de ocupantes de la sala.
-     * @param ocupantes Nueva lista de ocupantes a asignar.
-     */
-    public void setOcupantes(ArrayList<Persona> ocupantes) {
-        this.ocupantes = new ArrayList<>(ocupantes);
-    }
-
-    /**
      * Agrega un nuevo ocupante a la sala.
+     *
      * @param ocupante Persona a agregar como ocupante.
-     * @return true si se agregó correctamente, false si ya existe.
      * @throws IllegalArgumentException Si el ocupante es nulo.
      */
-    public boolean agregarOcupante(Persona ocupante) {
+    public void agregarOcupante(Persona ocupante) {
         if(ocupante == null) {
             throw new IllegalArgumentException("El ocupante no puede ser nulo");
         }
         if(buscarOcupante(ocupante.getId()) != null) {
-            return false;
+            return;
         }
-        return ocupantes.add(ocupante);
+        ocupantes.add(ocupante);
     }
 
     /**
@@ -153,51 +145,15 @@ public class Sala {
     }
 
     /**
-     * Actualiza los datos de un ocupante existente en la sala.
-     * @param ocupante Persona con los datos actualizados.
-     * @return true si se modificó correctamente, false si no se encontró al ocupante.
-     * @throws IllegalArgumentException Si el ocupante es nulo.
-     */
-    public boolean modificarOcupante(Persona ocupante) {
-        if(ocupante == null) {
-            throw new IllegalArgumentException("El ocupante no puede ser nulo");
-        }
-
-        for(int i = 0; i < ocupantes.size(); i++) {
-            if(ocupantes.get(i).getId().equals(ocupante.getId())) {
-                ocupantes.set(i, ocupante);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Elimina un ocupante de la sala por su identificador.
+     *
      * @param id Identificador de la persona a eliminar.
-     * @return true si se eliminó correctamente, false si no se encontró al ocupante.
      */
-    public boolean eliminarOcupante(String id) {
-        return ocupantes.removeIf(p -> p != null && p.getId().equals(id));
+    public void eliminarOcupante(String id) {
+        ocupantes.removeIf(p -> p != null && p.getId().equals(id));
     }
 
     // ==================== MÉTODOS ADICIONALES ====================
-
-    /**
-     * Verifica si la sala está vacía (sin ocupantes).
-     * @return true si no hay ocupantes, false si hay al menos uno.
-     */
-    public boolean estaVacia() {
-        return ocupantes.isEmpty();
-    }
-
-    /**
-     * Obtiene el número actual de ocupantes en la sala.
-     * @return Cantidad de ocupantes.
-     */
-    public int getN_personas() {
-        return ocupantes.size();
-    }
 
     @Override
     public String toString() {
