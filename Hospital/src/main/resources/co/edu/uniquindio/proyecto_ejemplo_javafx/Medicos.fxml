@@ -45,12 +45,13 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="278.0" prefWidth="650.0">
                <children>
-                  <TableView fx:id="tbl_medicos" layoutX="14.0" layoutY="14.0" prefHeight="246.0" prefWidth="301.0">
+                  <TableView fx:id="tbl_medicos" layoutX="14.0" layoutY="14.0" prefHeight="246.0" prefWidth="390.0">
                      <columns>
                         <TableColumn fx:id="cln_Nombre" prefWidth="75.0" text="Nombre" />
                         <TableColumn fx:id="cln_Apellido" prefWidth="75.0" text="Apellido" />
                         <TableColumn fx:id="cln_Id" prefWidth="75.0" text="Cedula" />
                         <TableColumn fx:id="cln_Telefono" prefWidth="75.0" text="Telefono" />
+                        <TableColumn fx:id="cln_disponibilidad" prefWidth="88.79996337890623" text="Disponibilidad" />
                      </columns>
                   </TableView>
                   <Button fx:id="btn_limpiar" layoutX="500.0" layoutY="111.0" mnemonicParsing="false" onAction="#limpiarSeleccion" text="Limpiar" />

@@ -247,6 +247,25 @@ public class Hospital {
         return false;
     }
 
+    /**
+     * verifica la estancia de un medico en cualquier sala
+     * @param idMedico
+     * @return true (si el medico esta disponible) o false (si el medico esta en una sala)
+     */
+    public boolean getDisponibilidad(String idMedico) {
+        Medico medico = buscarMedico(idMedico);
+        if(medico != null) {
+            for(Sala sala : salas) {
+                Persona p = sala.buscarOcupante(medico.getId());
+                if (p != null) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
     // ==================== GESTIÓN DE PACIENTES ====================
 
     /**

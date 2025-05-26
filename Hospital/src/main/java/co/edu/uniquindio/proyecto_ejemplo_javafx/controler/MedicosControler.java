@@ -5,9 +5,6 @@ import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Administrador;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Hospital;
 import co.edu.uniquindio.proyecto_ejemplo_javafx.model.Medico;
 
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 public class MedicosControler {
@@ -47,5 +44,13 @@ public class MedicosControler {
     public void setHorario(String medico, String horai, String horaf){
         hospital.buscarMedico(medico).setHorarioinicio(horai);
         hospital.buscarMedico(medico).setHorariofin(horaf);
+    }
+
+    public String getDisponibilidad(String idmedico){
+        String mensage = "Ocupado";
+        if (hospital.getDisponibilidad(idmedico)){
+            mensage = "Disponible";
+        }
+        return mensage;
     }
 }

@@ -74,6 +74,9 @@ public class MedicosViewControler {
     public TableColumn<Medico, String> cln_Telefono;
 
     @FXML
+    public TableColumn<Medico, String> cln_disponibilidad;
+
+    @FXML
     public Button limpiar;
 
     @FXML
@@ -153,6 +156,7 @@ public class MedicosViewControler {
         cln_Telefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
         cln_Apellido.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApellido()));
         cln_Nombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        cln_disponibilidad.setCellValueFactory(cellData -> new SimpleStringProperty(controler.getDisponibilidad(cellData.getValue().getId())));
     }
 
     private void obtenerMedicos() {

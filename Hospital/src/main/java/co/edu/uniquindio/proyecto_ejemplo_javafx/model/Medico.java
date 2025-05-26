@@ -34,6 +34,7 @@ public class Medico extends Persona {
     public String getHorarioinicio() {
         return horarioinicio;
     }
+
     public String getHorariofin() {
         return horariofin;
     }
