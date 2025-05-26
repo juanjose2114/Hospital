@@ -12,8 +12,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-import javax.swing.*;
-
 public class AdministradoresViewControler {
     App app;
     Administrador administrador;
@@ -22,7 +20,7 @@ public class AdministradoresViewControler {
 
     ObservableList<Administrador> administradores = FXCollections.observableArrayList();
 
-//------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 
     @FXML
     public Button btn_volver;
@@ -77,6 +75,7 @@ public class AdministradoresViewControler {
     @FXML
     public void agregar() {
         controler.agregarAdministrador(administrador.getId(), txt_nombre.getText(), txt_apellido.getText(), txt_id.getText(), txt_telefono.getText());
+        initVoid();
     }
 
     @FXML
@@ -85,6 +84,13 @@ public class AdministradoresViewControler {
         if (!id.isEmpty()) {
             controler.actualizarMedico(txt_nombre.getText(), txt_apellido.getText(), id, txt_telefono.getText());
         }
+        initVoid();
+    }
+
+    @FXML
+    public void eliminar() {
+        controler.eliminarAdministrador(txt_id.getText());
+        initVoid();
     }
 
     @FXML
@@ -92,11 +98,6 @@ public class AdministradoresViewControler {
         tbl_administradores.getSelectionModel().clearSelection();
         limpiarCampos();
         tbl_administradores.refresh();
-    }
-
-    @FXML
-    public void eliminar() {
-        controler.eliminarAdministrador(txt_id.getText());
     }
 
 
@@ -117,7 +118,7 @@ public class AdministradoresViewControler {
 
     private void obtenerAdministradores(){
         administradores.clear();
-        administradores.addAll(administradores);
+        administradores.addAll(controler.getAdministradores());
     }
 
     private void listSelection(){
@@ -136,7 +137,7 @@ public class AdministradoresViewControler {
         }
     }
 
-    private void initVoid(){
+    private void initVoid() {
         tbl_administradores.setItems(null);
         initDataBinding();
         obtenerAdministradores();

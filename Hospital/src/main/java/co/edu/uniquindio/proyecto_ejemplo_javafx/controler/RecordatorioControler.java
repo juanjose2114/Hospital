@@ -12,6 +12,7 @@ public class RecordatorioControler {
     public String enviarRecordatorio(){
         Paciente p;
         int contador = 0;
+        System.out.println("|--------------------------------------------");
         for (Cita c : hospital.getCitas()){
             p = hospital.buscarPaciente(c.getPaciente());
             System.out.println("enviando recordatorio a " + p.getNombre() + " al telefono " + p.getTelefono() + "por la cita " + c.getId() + " para el dia " + c.getFecha() + "\n|--------------------------------------------");

@@ -11,7 +11,7 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="155.0" prefWidth="482.0">
                <children>
                   <Label layoutX="23.0" layoutY="18.0" text="imagen h" />
-                  <Button fx:id="btn_volver" layoutX="600.0" layoutY="1.0" mnemonicParsing="false" text="volver" />
+                  <Button fx:id="btn_volver" layoutX="600.0" layoutY="1.0" mnemonicParsing="false" onAction="#volver" onDragDetected="#volver" text="volver" />
                   <Label layoutX="232.0" layoutY="20.0" text="Gestion de Administradores">
                      <font>
                         <Font size="20.0" />
@@ -41,10 +41,10 @@
                <children>
                   <TableView fx:id="tbl_administradores" layoutX="14.0" layoutY="14.0" prefHeight="246.0" prefWidth="340.0">
                      <columns>
-                        <TableColumn fx:id="cln_Nombre" prefWidth="101.39999389648438" text="Nombre" />
-                        <TableColumn fx:id="cln_Apellido" prefWidth="57.00001525878906" text="Apellido" />
-                        <TableColumn fx:id="cln_Id" prefWidth="77.20001220703125" text="Cedula" />
-                        <TableColumn fx:id="cln_Telefono" prefWidth="103.19999694824219" text="Telefono" />
+                        <TableColumn fx:id="cln_nombre" prefWidth="101.39999389648438" text="Nombre" />
+                        <TableColumn fx:id="cln_apellido" prefWidth="57.00001525878906" text="Apellido" />
+                        <TableColumn fx:id="cln_id" prefWidth="77.20001220703125" text="Cedula" />
+                        <TableColumn fx:id="cln_telefono" prefWidth="103.19999694824219" text="Telefono" />
                      </columns>
                   </TableView>
                   <Button fx:id="btn_limpiar" layoutX="500.0" layoutY="93.0" mnemonicParsing="false" onAction="#limpiar" text="Limpiar" />

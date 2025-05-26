@@ -37,7 +37,7 @@ public class Cita {
         this.fecha = fecha;
         this.id = id;
         this.idPaciente = idPaciente;
-        this.estado = true; // Por defecto, la cita se crea como pendiente
+        this.estado = false; // Por defecto, la cita se crea como pendiente
     }
 
     // ==================== MÉTODOS DE ACCESO ====================

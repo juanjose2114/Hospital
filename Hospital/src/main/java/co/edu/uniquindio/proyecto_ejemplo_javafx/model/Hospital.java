@@ -148,12 +148,8 @@ public class Hospital {
      * @return true si se agregó correctamente, false si ya existía
      */
     public boolean crearAdministrador(String idAdmin, Administrador administrador) {
-        if(buscarAdministrador(idAdmin) != null) {
-            if(buscarAdministrador(administrador.getNombre()) != null) {
-                if (buscarAdministrador(administrador.getId()) == null) {
-                    return administradores.add(administrador);
-                }
-            }
+        if(buscarAdministrador(administrador.getId()) == null) {
+            return administradores.add(administrador);
         }
         return false;
     }
@@ -178,7 +174,7 @@ public class Hospital {
      * @return true si se modificó correctamente, false si no existía
      */
     public boolean modificarAdministrador(Administrador administrador) {
-        if(buscarAdministrador(administrador.getNombre()) != null) {
+        if(buscarAdministrador(administrador.getId()) != null) {
             administradores.remove(buscarAdministrador(administrador.getId()));
             return administradores.add(administrador);
         }

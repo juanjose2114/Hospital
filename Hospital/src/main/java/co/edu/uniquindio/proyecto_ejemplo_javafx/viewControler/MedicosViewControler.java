@@ -128,8 +128,7 @@ public class MedicosViewControler {
 
     @FXML
     public void eliminarMedico() {
-        String medico = txt_id.getText();
-        controler.eliminarMedico(administrador, controler.buscarMedico(medico));
+        controler.eliminarMedico(administrador, controler.buscarMedico(txt_id.getText()));
         initVoid();
     }
 

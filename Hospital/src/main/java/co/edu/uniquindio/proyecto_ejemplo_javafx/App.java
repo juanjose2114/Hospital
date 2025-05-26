@@ -34,9 +34,9 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader();
             System.out.println("configurando Loader con: " + fxmlPath);
             loader.setLocation(getClass().getResource(fxmlPath));
-            System.out.println("parent root \n        " + loader.getLocation());
+            System.out.println("parent root\n-----" + loader.getLocation());
             Parent root = loader.load();
-            System.out.println("llamado el setApp\n        " + fxmlPath);
+            System.out.println("llamado el setApp\n-----" + fxmlPath);
             switch (fxmlPath){
                 case "MenuInicio.fxml":
                     MenuInicioViewController controller1 = loader.getController();
@@ -88,7 +88,7 @@ public class App extends Application {
                     break;
                 case "Reporte.fxml":
                     ReporteViewControler controller13 = loader.getController();
-                    //setApp
+                    controller13.setApp(this, hospital.buscarAdministrador(usuario));
                     break;
                 case "Recordatorio.fxml":
                     RecordatorioViewControler controller14 = loader.getController();
